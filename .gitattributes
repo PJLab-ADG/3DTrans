@@ -1,0 +1,5 @@
+docs/seq_demo_once.gif filter=lfs diff=lfs merge=lfs -text
+docs/seq_demo_waymo_bev.gif filter=lfs diff=lfs merge=lfs -text
+docs/seq_demo_waymo_fp.gif filter=lfs diff=lfs merge=lfs -text
+docs/sequence_demo.gif filter=lfs diff=lfs merge=lfs -text
+docs/seq_demo_nusc.gif filter=lfs diff=lfs merge=lfs -text
