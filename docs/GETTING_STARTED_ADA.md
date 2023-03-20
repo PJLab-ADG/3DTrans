@@ -192,7 +192,7 @@ Here, We take Waymo-to-KITTI adaptation as an example.
 * To test with multiple machines for S-Proj:
   
   ```shell
-  sh scripts_sproj/slurm_test_mgpu.sh ${PARTITION} ${NUM_NODES} \ 
+  sh scripts/slurm_test_mgpu.sh ${PARTITION} ${NUM_NODES} \ 
     --cfg_file ${CONFIG_FILE} \ 
     --batch_size ${BATCH_SIZE}
   ```

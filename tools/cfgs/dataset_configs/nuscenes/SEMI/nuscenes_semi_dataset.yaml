@@ -1,6 +1,6 @@
 DATASET: 'NuScenesDataset'
 DATA_PATH: '../data/nuscenes'
-# OSS_PATH: 's3://${PATH_TO_DATASET}/nuScenes/original_raw_data/v1.0-trainval'
+# OSS_PATH: 's3://${PATH_TO_DATASET}/nuScenes'
 
 LABELED_RATIO: 0
 VERSION: 'v1.0-trainval'

@@ -121,8 +121,6 @@ def train_model(model, optimizer, train_loader_1, train_loader_2, train_loader_3
             if ps_pkl is not None:
                 logger.info('==> Loading pseudo labels from {}'.format(ps_pkl))
         
-        # it is wrong that total_it is equal to the sum of both train_loader_1 and train_loader_2
-        # total_it_each_epoch = len(train_loader_1) + len(train_loader_2)
         total_it_each_epoch = len(train_loader_1) if len(train_loader_1) > len(train_loader_2) else len(train_loader_2)
 
         if merge_all_iters_to_one_epoch:

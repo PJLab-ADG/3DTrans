@@ -1,6 +1,6 @@
 DATASET: 'ActiveNuScenesDataset'
 DATA_PATH: '../data/nuscenes'
-# OSS_PATH: 's3://${PATH_TO_DATASET}/nuScenes/original_raw_data/v1.0-trainval'
+# OSS_PATH: 's3://${PATH_TO_DATASET}/nuScenes'
 
 VERSION: 'v1.0-trainval'
 SET_NAN_VELOCITY_TO_ZEROS: True

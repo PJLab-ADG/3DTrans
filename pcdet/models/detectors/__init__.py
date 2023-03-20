@@ -27,7 +27,6 @@ from .centerpoint import SemiCenterPoint
 from .pv_rcnn_plusplus import PVRCNNPlusPlus
 from .pv_rcnn_plusplus import PVRCNNPlusPlus_M_DB
 from .pv_rcnn_plusplus import SemiPVRCNNPlusPlus
-from .centerpoint_3dal import CenterPoint3DAL
 from .IASSD import IASSD
 from .semi_second import SemiSECOND, SemiSECONDIoU
 from .unsupervised_model.pvrcnn_plus_backbone import PVRCNN_PLUS_BACKBONE
@@ -62,7 +61,6 @@ __all__ = {
     'PVRCNNPlusPlus': PVRCNNPlusPlus,
     'PVRCNNPlusPlus_M_DB': PVRCNNPlusPlus_M_DB,
     'SemiPVRCNNPlusPlus': SemiPVRCNNPlusPlus,
-    'CenterPoint3DAL': CenterPoint3DAL,
     'IASSD': IASSD,
     'ActiveDualPVRCNN': ActivePVRCNN_DUAL,
     'SemiSECOND': SemiSECOND,

@@ -3,10 +3,21 @@
 
 Please download and preprocess the point cloud datasets according to the [dataset guidance](GETTING_STARTED.md)
 
-:rocket: :rocket: News: 3DTrans has been verified to effectively improve the precision of pseudo labeling for massive unlabeled data on ONCE dataset!
+&ensp;
+## :fire: News of Our 3D Pre-training Study :fire:
+- 3DTrans has supported the Autonomous Driving Pre-training using the [PointContrast](https://arxiv.org/abs/2007.10985) 
+- We are exploring the effective pre-training solution by means of ONCE dataset, and if you are interested in this topic, do not hesitate to contact me (bo.zhangzx@gmail.com).
+
+## Multi-source Pre-training Framework Visualization
+&ensp;
+<p align="center">
+  <img src="3dtrans.png" width="92%">
+  <div>The detailed network structure information of each module in 3DTrans, where we leverage multi-source domains with significant data-level differences to perform the point-cloud pre-training task.</div>
+</p>
+
 
 &ensp;
-## Pre-training ONCE using PointContrast 
+### Pre-training ONCE using PointContrast 
 
 * a) Train PV-RCNN++ backbone with [PointContrast](https://arxiv.org/abs/2007.10985) using multiple GPUs
 ```shell script
@@ -36,6 +47,6 @@ sh scripts/dist_train.sh ${NUM_GPUs} \
 ```
 
 &ensp;
-## Pre-training ONCE using Dynamic Updating Pseudo-labeling
+### Pre-training using Dynamic Updating Pseudo-labeling
 
-We are actively exploring the possibility of boosting the **3D model generalization** by means of ONCE dataset,  The corresponding code is **coming soon** !! :muscle: :muscle:
+ :muscle: :muscle: We are actively exploring the possibility of boosting the **3D pre-training generalization ability**. The corresponding code is **coming soon** in 3DTrans-v0.2.0.

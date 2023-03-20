@@ -22,7 +22,7 @@ DATA_CONFIG:
 
 DATA_CONFIG_SRC_SAMPLE:
     _BASE_CONFIG_: cfgs/dataset_configs/waymo/ADA/ada_waymo_dataset_16_beam.yaml
-    FILE_PATH: ./data/waymo_16/waymo_processed_data_v0_5_0
+    FILE_PATH: ../data/waymo_16/waymo_processed_data_v0_5_0
     SOURCE_SAMPLE: True
     SOURCE_SAMPLED_INTERVAL: 20
     INFO_WITH_FAKELIDAR: False

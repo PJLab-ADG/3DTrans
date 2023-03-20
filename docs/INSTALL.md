@@ -32,12 +32,6 @@ b. Install the dependent libraries as follows:
     * Also, you should choice **the right version of spconv**, according to **your CUDA version**. For example, for CUDA 11.1, pip install spconv-cu111
   
 c. Install this `pcdet` library and its dependent libraries by running the following command:
-* NOTE: If you install this repository on the S-Project, please use **srun** to submit the installation command as follows:
-```shell
-srun -p shlab_adg -N 1 -c 10 python setup.py develop
-```
-
-* Normal installation
 ```shell
 python setup.py develop
 ```

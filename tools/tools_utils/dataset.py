@@ -147,7 +147,7 @@ class Dataset():
 
     def get_lidar_with_sweeps(self, args, info):
         if args.bucket_name is not None:
-            lidar_path = os.path.join("dataset/nuScenes/original_raw_data/v1.0-trainval", info['lidar_path'])
+            lidar_path = os.path.join("dataset/nuScenes", info['lidar_path'])
             obj = self.client.get_object(Bucket=args.bucket_name, Key=lidar_path)
             points_pre = np.frombuffer(io.BytesIO(obj['Body'].read()).read(), dtype=np.float32, count=-1).reshape([-1, 5]).copy()
             points = points_pre[:, :4]

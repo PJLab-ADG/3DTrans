@@ -34,33 +34,6 @@ def gaussian_radius(height, width, min_overlap=0.5):
     ret = torch.min(torch.min(r1, r2), r3)
     return ret
 
-def gaussian_radius_3dal(det_size, min_overlap=0.5):
-    '''
-    This function is used in 3DAL and CornerNet, the biggest difference between the version in 
-    3DTrans is r2 and a3 setting. Generally, the value from 3DAL is smaller than 3DTrans
-    '''
-    height, width = det_size
-
-    a1 = 1
-    b1 = (height + width)
-    c1 = width * height * (1 - min_overlap) / (1 + min_overlap)
-    sq1 = np.sqrt(b1 ** 2 - 4 * a1 * c1)
-    r1 = (b1 + sq1) / (2*a1)
-
-    a2 = 4
-    b2 = 2 * (height + width)
-    c2 = (1 - min_overlap) * width * height
-    sq2 = np.sqrt(b2 ** 2 - 4 * a2 * c2)
-    r2 = (b2 + sq2) / (2*a2)
-
-    a3 = 4 * min_overlap
-    b3 = -2 * min_overlap * (height + width)
-    c3 = (min_overlap - 1) * width * height
-    sq3 = np.sqrt(b3 ** 2 - 4 * a3 * c3)
-    r3 = (b3 + sq3) / (2*a3)
-
-    return min(r1, r2, r3)
-
 def gaussian2D(shape, sigma=1):
     m, n = [(ss - 1.) / 2. for ss in shape]
     y, x = np.ogrid[-m:m + 1, -n:n + 1]
@@ -257,40 +230,3 @@ def decode_bbox_from_heatmap(heatmap, rot_cos, rot_sin, center, center_z, dim,
             'pred_labels': cur_labels
         })
     return ret_pred_dicts
-
-
-def check_numpy_to_torch(x):
-    """
-    This function is borrowed from 3DAL
-    """
-    if isinstance(x, np.ndarray):
-        return torch.from_numpy(x).float(), True
-    return x, False
-
-
-def rotate_points_along_z(points, angle):
-    """
-    This function is borrowed from 3DAL
-    Args:
-        points: (B, N, 3 + C)
-        angle: (B), angle along z-axis, angle increases x ==> y
-    Returns:
-    """
-    points, is_numpy = check_numpy_to_torch(points)
-    angle, _ = check_numpy_to_torch(angle)
-
-    if points.is_cuda:
-        angle = angle.cuda()
-
-    cosa = torch.cos(angle)
-    sina = torch.sin(angle)
-    zeros = angle.new_zeros(points.shape[0])
-    ones = angle.new_ones(points.shape[0])
-    rot_matrix = torch.stack((
-        cosa,  sina, zeros,
-        -sina, cosa, zeros,
-        zeros, zeros, ones
-    ), dim=1).reshape(-1, 3, 3).float()
-    points_rot = torch.matmul(points[:, :, 0:3], rot_matrix)
-    points_rot = torch.cat((points_rot, points[:, :, 3:]), dim=-1)
-    return points_rot.numpy() if is_numpy else points_rot

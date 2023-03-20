@@ -70,10 +70,11 @@ We expect this repository will inspire the research of 3D model generalization s
 
 - `3DTrans` is developed based on [`OpenPCDet`](https://github.com/open-mmlab/OpenPCDet) codebase, which can be easily integrated with the models developing using `OpenPCDet` repository. Thanks for their valuable open-sourcing!
 
-
 &ensp;
 <p align="center">
-  <img src="docs/3dtrans.png" width="100%">
+  <img src="docs/3DTrans_module_relation.png" width="70%">
+  <div>The relations of different modules (UDA, ADA, SSDA, MDF, Pre-training) in 3DTrans: The basic model uses UDA/ADA/SSDA (target-oriented adaptation techniques to alleviate inter-domain shift and perform the inference). Then, MDF can use the results of multi-source domains for pre-training to generate a unified dataset. Finally, pre-training task are utilized to learn generalizable representations from multi-source domains, which can effectively boost the performance of basic model.
+</div>
 </p>
 
 
@@ -84,7 +85,7 @@ You may refer to [INSTALL.md](docs/INSTALL.md) for the installation of `3DTrans`
 
 ## Getting Started
 
-* Please refer to [Readme for Datasets](docs/GETTING_STARTED_DB.md) to prepare the dataset and convert the data into the 3DTrans format. Besides, 3DTrans supports the reading and writing data from **Ceph**, please refer to [Readme for Datasets](docs/GETTING_STARTED_DB.md) for more details.
+* Please refer to [Readme for Datasets](docs/GETTING_STARTED_DB.md) to prepare the dataset and convert the data into the 3DTrans format. Besides, 3DTrans supports the reading and writing data from **Ceph Petrel-OSS**, please refer to [Readme for Datasets](docs/GETTING_STARTED_DB.md) for more details.
 
 * Please refer to [Readme for UDA](docs/GETTING_STARTED_UDA.md) for understanding the problem definition of UDA and performing the UDA adaptation process.
 
@@ -221,29 +222,6 @@ Here, we report the Waymo-and-nuScenes consolidation results. The models are joi
 | [PV-RCNN++-DT](./tools/cfgs/MDF/waymo_nusc/waymo_nusc_pvplus_feat_3_domain_attention.yaml) | Domain Attention | 68.51 / 68.05 |  69.81 / 63.58  |  64.39 / 63.43  | 62.33 / 44.16  |  33.44 / 26.94 | 21.64 / 18.52 |
 
 
-<!-- &ensp;
-&ensp;
-## Auto-labeling for ONCE
-- Here, we provide the pseudo-label results for [Small Split](), [Small Split for Vehicle and Cyclist]() and [Medium Split]() of ONCE dataset, which includes 70 sequences (100k scenes) and 321 sequences (500k scenes), respectively.
-
-- We annotate the Small Split and Medium Split of ONCE dataset using the Vehicle, Pedestrian, and Cyclist class definition.
-
-- Please refer to [Auto-labeling for ONCE](docs/ONCE_AUTO_LABELING.md) for the detailed process of starting the auto-labeling for ONCE data.
-
-* PS with Pretraining denotes that we employ the [Pretraining ckpt]() and [Pseudo-labeling process](tools/cfgs/once_models/sup_models/inference/pv_rcnn_plus_anchor_vehicle_cyclist_inference_unlabeled_M.yaml) to generate the pseudo-labels for unlabeled ONCE data, and fine-tune the baseline model on the pseudo-labeled data. Please refer to [Auto-labeling for ONCE Data](#auto-labeling-for-once) for more details.
-
-|                                             |  Training ONCE Data | Methods | Vehicle@AP  | Pedestrian@AP  | Cyclist@AP  | download | 
-|------------------------|---------------------------------:|:----------:|:----------:|:-------:|:-------:|:---------:|
-| [Centerpoint_Pede](tools/cfgs/once_models/sup_models/centerpoint_pede_0075.yaml) |  Labeled (4K) |  Train from scracth | - |   |  - | - |
-| [Centerpoint_Pede](tools/cfgs/once_models/sup_models/centerpoint_pede_0075.yaml) |  Labeled (4K) |  [Waymo Pre-training]() | - |  49.14  |  - | - |
-| [Centerpoint_Pede](tools/cfgs/once_models/sup_models/centerpoint_pede_0075.yaml) |  Small Dataset (100K) | [PS with Pretraining]() | - |  56.01  |  - | - |
-| [PV-RCNN++](tools/cfgs/once_models/sup_models/pv_rcnn_plus_anchor_3CLS.yaml) |  Labeled (4K) | Train from scracth | 79.78 |  35.91  |  63.18 | - |
-| [PV-RCNN++](tools/cfgs/once_models/semi_learning_models/mt_pv_rcnn_plus_anchor_3CLS_small.yaml) |  Small Dataset (100K) | SESS | 80.02 |   46.24 |  66.41 | - |
-| [PV-RCNN++](tools/cfgs/once_models/sup_models/pv_rcnn_plus_anchor_vehicle_pede_cyclist_cat_12.5.yaml) |  [Small Dataset (100K)]() | [PS with Pretraining]() | 82.15 |  49.13 |  68.95 | - |
-| [PV-RCNN++](tools/cfgs/once_models/sup_models/pv_rcnn_plus_anchor_vehicle_pede_cyclist_cat_R1_M.yaml) |  [Medium Dataset (500K)]() | [PS with Pretraining]() | - |  - |  - |  -  |
-| [PV-RCNN++_vehi_cyc](tools/cfgs/once_models/sup_models/pv_rcnn_plus_anchor_vehicle_cyclist_cat.yaml) |  [Small Dataset (100K)]() | [PS with Pretraining]() | 82.50 |  - |  71.19 | -  | -->
-
-
 &ensp;
 ## Point Cloud Pre-training for Autonomous Driving Task
 
@@ -251,17 +229,19 @@ Based on our research progress on the cross-domain adaptation of multiple autono
 
 - Please refer to [Readme for point cloud pre-training](docs/GETTING_STARTED_PRETRAIN.md) for starting the journey of 3D perception model pre-training.
 
-- We are actively exploring the possibility of boosting the 3D model generalization by means of ONCE dataset,  The powerful pre-training models and checkpoints are coming soon !! :muscle: :muscle:
+-  :muscle: :muscle: We are actively exploring the possibility of boosting the **3D pre-training generalization ability**. The corresponding code and pre-training checkpoints are **coming soon** in 3DTrans-v0.2.0.
 
 
 &ensp;
 ## Visualization Tools for 3DTrans
 
 - Our `3DTrans` supports the sequence-level visualization function [Quick Sequence Demo](docs/QUICK_SEQUENCE_DEMO.md) to continuously display the prediction results of ground truth of a selected scene.
-<p align="center">
-  <img src="docs/sequence_demo.gif" width="70%">
-</p>
 
+- **Visualization Demo**: 
+  - [Waymo Sequence-level Visualization Demo1](docs/seq_demo_waymo_bev.gif)
+  - [Waymo Sequence-level Visualization Demo2](docs/seq_demo_waymo_fp.gif)
+  - [nuScenes Sequence-level Visualization Demo](docs/seq_demo_nusc.gif)
+  - [ONCE Sequence-level Visualization Demo](docs/seq_demo_once.gif)
 
 &ensp;
 ## Acknowledge
@@ -275,15 +255,10 @@ Based on our research progress on the cross-domain adaptation of multiple autono
 - [Bi3D: Bi-domain Active Learning for Cross-domain 3D Object Detection](https://arxiv.org/abs/2303.05886)<br>
 - [UniDA3D: Unified Domain Adaptive 3D Semantic Segmentation Pipeline](https://arxiv.org/abs/2212.10390)<br>
 
-**Demo Videos**: 
-- [Waymo Sequence-level Visualization Demo1](docs/seq_demo_waymo_bev.gif)
-- [Waymo Sequence-level Visualization Demo2](docs/seq_demo_waymo_fp.gif)
-- [nuScenes Sequence-level Visualization Demo](docs/seq_demo_nusc.gif)
-- [ONCE Sequence-level Visualization Demo](docs/seq_demo_once.gif)
 
 **Our Team**:
 
-A Team Home for Member Information and Profile, [Project Link](https://bobrown.github.io/Team_3DTrans.github.io/)
+- A Team Home for Member Information and Profile, [Project Link](https://bobrown.github.io/Team_3DTrans.github.io/)
 
 ## Related Projects
 - Welcome to see [SUG](https://github.com/SiyuanHuang95/SUG) for exploring the possibilities of adapting a model to multiple
@@ -292,7 +267,16 @@ unseen domains and studying how to leverage the feature’s multi-modal informat
 ## Citation
 If you find this project useful in your research, please consider citing:
 ```
-@inproceedings{,
+@misc{3dtrans2023,
+    title={3DTrans: An Open-source Codebase for Exploring Transferable Autonomous Driving Perception Task},
+    author={3DTrans Development Team},
+    howpublished = {\url{https://github.com/PJLab-ADG/3DTrans}},
+    year={2023}
+}
+```
+
+```
+@inproceedings{zhang2023uni3d,
   title={Uni3D: A Unified Baseline for Multi-dataset 3D Object Detection},
   author={Bo Zhang, Jiakang Yuan, Botian Shi, Tao Chen, Yikang Li, and Yu Qiao},
   booktitle={CVPR},
@@ -301,7 +285,7 @@ If you find this project useful in your research, please consider citing:
 ```
 
 ```
-@inproceedings{,
+@inproceedings{yuan2023bi3d,
   title={Bi3D: Bi-domain Active Learning for Cross-domain 3D Object Detection},
   author={Jiakang Yuan, Bo Zhang, Xiangchao Yan, Tao Chen, Botian Shi, Yikang Li, and Yu Qiao},
   booktitle={CVPR},
@@ -310,19 +294,10 @@ If you find this project useful in your research, please consider citing:
 ```
 
 ```
-@article{,
+@article{fei2023unida3d,
   title={UniDA3D: Unified Domain Adaptive 3D Semantic Segmentation Pipeline},
   author={Ben Fei, Siyuan Huang, Jiakang Yuan, Botian Shi, Bo Zhang, Weidong Yang, Min Dou, and Yikang Li},
   journal={arXiv preprint arXiv:2212.10390},
   year={2023}
 }
 ```
-
-<!-- ```
-@misc{3dtrans2023,
-    title={3DTrans: An Open-source Toolbox for Autonomous Driving-oriented Transfer Learning},
-    author={3DTrans Development Team},
-    howpublished = {\url{https://github.com/PJLab-ADG/3DTrans}},
-    year={2023}
-}
-``` -->

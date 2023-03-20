@@ -1,5 +1,5 @@
 """
-This file is borrowed from 3DAL-Project: https://gitlab.com/pjlab-adg/3dal-toolchain-v2
+This file is to match with previous version of CenterPoint model
 """
 import torch
 import numpy as np

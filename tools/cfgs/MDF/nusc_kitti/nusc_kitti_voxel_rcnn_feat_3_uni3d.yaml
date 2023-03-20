@@ -88,6 +88,11 @@ MODEL:
         UPSAMPLE_STRIDES: [1, 2]
         NUM_UPSAMPLE_FILTERS: [256, 256]
 
+    DENSE_2D_MoE:
+        NAME: DENSE_2D_DT
+        SOURCE_ONE_NAME: kitti
+        INPUT_CONV_CHANNEL: 512
+
     DENSE_HEAD_S1:
         NAME: CenterHead
         CLASS_AGNOSTIC: False
