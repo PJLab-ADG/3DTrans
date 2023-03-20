@@ -122,6 +122,11 @@ MODEL:
                 POOL_RADIUS: [2.4, 4.8]
                 NSAMPLE: [16, 32]
 
+    DENSE_2D_MoE:
+        NAME: DENSE_2D_DT
+        SOURCE_ONE_NAME: kitti
+        INPUT_CONV_CHANNEL: 512
+
     DENSE_HEAD_S1:
         NAME: CenterHead
         CLASS_AGNOSTIC: False

@@ -249,4 +249,4 @@ OPTIMIZATION:
 
     GRAD_NORM_CLIP: 10
 
-    DA_2_LOSS_W: 1.0
+    DB_2_W: 1.0

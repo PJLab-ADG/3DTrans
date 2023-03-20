@@ -12,6 +12,20 @@ SSDA model configs are located within [tools/cfgs/SSDA](../tools/cfgs/SSDA) for 
 
 Other model configs are located within [tools/cfgs/waymo_models](../tools/cfgs/waymo_models), [tools/cfgs/nuscenes_models](../tools/cfgs/nuscenes_models), [tools/cfgs/kitti_models](../tools/cfgs/kitti_models)for different datasets. 
 
+
+&ensp;
+# How to train our model using Ceph
+* Install petrel_client to enable the Ceph / PetrelBackend
+
+* Add '~/.petreloss.conf', which is a config file of Ceph, saving your KEY/ACCESS_KEY of S3 Ceph
+
+* You need to ensure that the file organization of all datasets in the Ceph (Petrel-OSS) is consistent with that described above.
+
+* For dataset config files, such as tools/cfgs/dataset_configs/waymo/OD/waymo_dataset.yaml, uncomment OSS_PATH and add the s3://path_of_your_dataset as follows:
+```shell script
+OSS_PATH: 's3://${PATH_TO_DATASET}/waymo_0.5.0'
+```
+
 &ensp;
 ## Dataset Preparation
 
@@ -180,17 +194,3 @@ python -m pcdet.datasets.lyft.lyft_dataset --func create_lyft_infos \
 
 * You need to check carefully since we don't provide a benchmark for it.
 
-
-&ensp;
-&ensp;
-# How to train our model using Ceph
-* Install petrel_client to enable the Ceph / PetrelBackend
-
-* Add '~/.petreloss.conf', which is a config file of Ceph, saving your KEY/ACCESS_KEY of S3 Ceph
-
-* You need to ensure that the file organization of all datasets in the Ceph (Petrel-OSS) is consistent with that described above.
-
-* For dataset config files, such as tools/cfgs/dataset_configs/waymo/OD/waymo_dataset.yaml, uncomment OSS_PATH and add the s3://path_of_your_dataset as follows:
-```shell script
-OSS_PATH: 's3://${PATH_TO_DATASET}/waymo_0.5.0'
-```
