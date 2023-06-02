@@ -1,5 +1,6 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2303.06880-b31b1b.svg)](https://arxiv.org/abs/2303.06880)
 [![arXiv](https://img.shields.io/badge/arXiv-2303.05886-b31b1b.svg)](https://arxiv.org/abs/2303.05886)
+[![arXiv](https://img.shields.io/badge/arXiv-2303.05886-b31b1b.svg)](https://arxiv.org/abs/2306.00612)
 [![GitHub issues](https://img.shields.io/github/issues/PJLab-ADG/3DTrans)](https://github.com/PJLab-ADG/3DTrans/issues)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/PJLab-ADG/3DTrans/pulls)
 
@@ -34,6 +35,7 @@
 
 &ensp;
 ## :fire: News :fire:
+- [x]  Based on `3DTrans`, we achieved significant performance gains on a series of downstream perception benchmarks including Waymo, nuScenes, and KITTI, under different baseline models like PV-RCNN++, SECOND, CenterPoint, PV-RCNN (updated on Jun. 2023).
 - [x] Two papers developed using our `3DTrans` were accepted by CVPR-2023: [Uni3D](https://arxiv.org/abs/2303.06880) and [Bi3D](https://arxiv.org/abs/2303.05886). (updated on Mar. 2023).
 - [x] Our `3DTrans` supported the Semi-Supervised Domain Adaptation (SSDA) for 3D Object Detection (updated on Nov. 2022).
 - [x] Our `3DTrans` supported the Active Domain Adaptation (ADA) of 3D Object Detection for achieving a good trade-off between high performance and annotation cost (updated on Oct. 2022).
@@ -41,7 +43,6 @@
 - [x] Our `3DTrans` supported the Multi-domain Dataset Fusion (MDF) of 3D Object Detection for enabling the existing 3D models to effectively learn from multiple off-the-shelf 3D datasets (updated on Sep. 2022).
 - [x] Our `3DTrans` supported the Unsupervised Domain Adaptation (UDA) of 3D Object Detection for deploying a well-trained source model to an unlabeled target domain (updated on July 2022).
 - [x] The self-learning for unlabeled point clouds and new data augmentation operations (such as Object Scaling (ROS) and Size Normalization (SN)) has been supported for `3DTrans`, which can achieve a performance boost based on the dataset prior of [object-size statistics](docs/STATISTICAL_RESULTS.md)
-- [x] Our `3DTrans` was initialized based on the `OpenPCD-v0.5.2` version (updated on May 2022).
 
 :rocket: We are actively updating this repository currently, and more **cross-dataset fusion solutions** (including domain attention and mixture-of-experts) and more **low-cost data sampling strategy** will be supported by 3DTrans in the furture, which aims to boost the generalization ability and adaptability of the existing state-of-the-art models. :rocket:
 
@@ -50,7 +51,7 @@ We expect this repository will inspire the research of 3D model generalization s
 ### :muscle: TODO List :muscle:
 
 - [ ] For ADA module, need to add the sequence-level data selection policy (to meet the requirement of practical annotation process).
-- [ ] Provide experimental findings for the AD-related 3D pre-training (**Our ongoing research**, which currently achieves promising pre-training results towards downstream tasks by exploiting large-scale unlabeled data in ONCE dataset using `3DTrans`).
+- [x] Provide experimental findings for the AD-related 3D pre-training (**Our ongoing research**, which currently achieves promising pre-training results towards downstream tasks by exploiting large-scale unlabeled data in ONCE dataset using `3DTrans`).
 
 
 &ensp;
@@ -253,7 +254,8 @@ Based on our research progress on the cross-domain adaptation of multiple autono
 **Our Papers**: 
 - [Uni3D: A Unified Baseline for Multi-dataset 3D Object Detection](https://arxiv.org/abs/2303.06880)<br> 
 - [Bi3D: Bi-domain Active Learning for Cross-domain 3D Object Detection](https://arxiv.org/abs/2303.05886)<br>
-- [UniDA3D: Unified Domain Adaptive 3D Semantic Segmentation Pipeline](https://arxiv.org/abs/2212.10390)<br>
+- [AD-PT: Autonomous Driving Pre-Training with Large-scale Point Cloud Dataset](https://arxiv.org/abs/2306.00612)<br>
+- [SUG: Single-dataset Unified Generalization for 3D Point Cloud Classification](https://arxiv.org/abs/2305.09160)<br>
 
 
 **Our Team**:
@@ -278,26 +280,37 @@ If you find this project useful in your research, please consider citing:
 ```
 @inproceedings{zhang2023uni3d,
   title={Uni3D: A Unified Baseline for Multi-dataset 3D Object Detection},
-  author={Bo Zhang, Jiakang Yuan, Botian Shi, Tao Chen, Yikang Li, and Yu Qiao},
-  booktitle={CVPR},
-  year={2023},
+  author={Zhang, Bo and Yuan, Jiakang and Shi, Botian and Chen, Tao and Li, Yikang and Qiao, Yu},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={9253--9262},
+  year={2023}
 }
 ```
 
 ```
 @inproceedings{yuan2023bi3d,
   title={Bi3D: Bi-domain Active Learning for Cross-domain 3D Object Detection},
-  author={Jiakang Yuan, Bo Zhang, Xiangchao Yan, Tao Chen, Botian Shi, Yikang Li, and Yu Qiao},
-  booktitle={CVPR},
-  year={2023},
+  author={Yuan, Jiakang and Zhang, Bo and Yan, Xiangchao and Chen, Tao and Shi, Botian and Li, Yikang and Qiao, Yu},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={15599--15608},
+  year={2023}
 }
 ```
 
 ```
-@article{fei2023unida3d,
-  title={UniDA3D: Unified Domain Adaptive 3D Semantic Segmentation Pipeline},
-  author={Ben Fei, Siyuan Huang, Jiakang Yuan, Botian Shi, Bo Zhang, Weidong Yang, Min Dou, and Yikang Li},
-  journal={arXiv preprint arXiv:2212.10390},
+@article{yuan2023AD-PT,
+  title={AD-PT: Autonomous Driving Pre-Training with Large-scale Point Cloud Dataset},
+  author={Yuan, Jiakang and Zhang, Bo and Yan, Xiangchao and Chen, Tao and Shi, Botian and Li, Yikang and Qiao, Yu},
+  journal={arXiv preprint arXiv:2306.00612},
+  year={2023}
+}
+```
+
+```
+@article{huang2023sug,
+  title={SUG: Single-dataset Unified Generalization for 3D Point Cloud Classification},
+  author={Huang, Siyuan and Zhang, Bo and Shi, Botian and Gao, Peng and Li, Yikang and Li, Hongsheng},
+  journal={arXiv preprint arXiv:2305.09160},
   year={2023}
 }
 ```

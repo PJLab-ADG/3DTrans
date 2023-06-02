@@ -472,9 +472,11 @@ class KittiDataset(DatasetTemplate):
             if self.dataset_cfg.get('USE_PSEUDO_LABEL', None) and self.training:
                 input_dict['gt_boxes'] = None
 
-            road_plane = self.get_road_plane(sample_idx)
-            if road_plane is not None:
-                input_dict['road_plane'] = road_plane
+            # Since we could use the Sim-KITTI, which excludes the ROAD-PLANE
+            if not self.dataset_cfg.get('USE_SIM_DATA', None):
+                road_plane = self.get_road_plane(sample_idx)
+                if road_plane is not None:
+                    input_dict['road_plane'] = road_plane
                 
             # for debug only
             # gt_boxes_mask = np.array([n in self.class_names for n in input_dict['gt_names']], dtype=np.bool_)
