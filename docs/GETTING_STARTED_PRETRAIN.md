@@ -1,5 +1,6 @@
 
-# Getting Started ## Point Cloud Pre-training
+# Getting Started 
+## Point Cloud Pre-training
 
 Please download and preprocess the point cloud datasets according to the [dataset guidance](GETTING_STARTED.md)
 
@@ -50,3 +51,12 @@ sh scripts/dist_train.sh ${NUM_GPUs} \
 ### Pre-training using Dynamic Updating Pseudo-labeling
 
  :muscle: :muscle: We are actively exploring the possibility of boosting the **3D pre-training generalization ability**. The corresponding code is **coming soon** in 3DTrans-v0.2.0.
+
+- **AD-PT pre-trained checkpoints**
+  <span id="once-ckpt">
+  
+  | Pre-trained data | Pre-trained model |
+  | ---------------- | ----------------- |
+  | ONCE PS-100K     | [once-100K-ckpt](https://drive.google.com/file/d/1MG7rZu19oFHi2fZs4xA_Ts1tMzPV8yEi/view?usp=sharing)|
+  | ONCE PS-500K     | [once-500K-ckpt](https://drive.google.com/file/d/1PV2K0J6geK5BkDbG6-XiPvWOW60lN41S/view?usp=sharing) |
+  | ONCE PS-1M       | [once-1M-ckpt](https://drive.google.com/file/d/13WD7sjXkZ0tYxIgM8DrMKvBOT9Q85YPf/view?usp=sharing) |

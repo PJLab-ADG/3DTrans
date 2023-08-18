@@ -16,25 +16,29 @@
 **This project is developed and maintained by Autonomous Driving Group [at] [Shanghai AI Laboratory](https://www.shlab.org.cn/) (ADLab).**
 
 ## Overview
-- [Update News](#fire-news-fire)
-- [TODO List](#muscle-todo-list-muscle)
-- [3DTrans Framework Introduction](#3dtrans-framework-introduction)
-  - [What does `3DTrans` Codebase do?](#what-does-3dtrans-codebase-do)
-- [Installation for 3DTrans](#installation-for-3dtrans)
-- [Getting Started](#getting-started)
-- [Model Zoo:](#model-zoo)
-  - [UDA Results:](#uda-results)
-  - [ADA Results:](#ada-results)
-  - [SSDA Results:](#ssda-results)
-  - [MDF Results:](#mdf-results)
-- [Point Cloud Pre-training for Autonomous Driving Task](#point-cloud-pre-training-for-autonomous-driving-task)
-- [Visualization Tools for 3DTrans](#visualization-tools-for-3dtrans)
-- [Acknowledge](#acknowledge)
-- [Citation](#citation)
+- [3DTrans: Autonomous Driving Transfer Learning Codebase](#3dtrans-autonomous-driving-transfer-learning-codebase)
+  - [Overview](#overview)
+  - [:fire: News :fire:](#fire-news-fire)
+    - [:muscle: TODO List :muscle:](#muscle-todo-list-muscle)
+  - [3DTrans Framework Introduction](#3dtrans-framework-introduction)
+    - [What does `3DTrans` Codebase do?](#what-does-3dtrans-codebase-do)
+  - [Installation for 3DTrans](#installation-for-3dtrans)
+  - [Getting Started](#getting-started)
+  - [Model Zoo:](#model-zoo)
+    - [UDA Results:](#uda-results)
+    - [ADA Results:](#ada-results)
+    - [SSDA Results:](#ssda-results)
+    - [MDF Results:](#mdf-results)
+  - [Point Cloud Pre-training for Autonomous Driving Task](#point-cloud-pre-training-for-autonomous-driving-task)
+  - [Visualization Tools for 3DTrans](#visualization-tools-for-3dtrans)
+  - [Acknowledge](#acknowledge)
+  - [Related Projects](#related-projects)
+  - [Citation](#citation)
 
 
 &ensp;
 ## :fire: News :fire:
+- [x] We released the AD-PT pre-trained checkpoints, see <a href=./docs/GETTING_STARTED_PRETRAIN.md#once-ckpt>AD-PT pre-trained checkpoints</a> for pre-trained checkpoints (updated on Aug. 2023).
 - [x]  Based on `3DTrans`, we achieved significant performance gains on a series of downstream perception benchmarks including Waymo, nuScenes, and KITTI, under different baseline models like PV-RCNN++, SECOND, CenterPoint, PV-RCNN (updated on Jun. 2023).
 - [x] Two papers developed using our `3DTrans` were accepted by CVPR-2023: [Uni3D](https://arxiv.org/abs/2303.06880) and [Bi3D](https://arxiv.org/abs/2303.05886). (updated on Mar. 2023).
 - [x] Our `3DTrans` supported the Semi-Supervised Domain Adaptation (SSDA) for 3D Object Detection (updated on Nov. 2022).
