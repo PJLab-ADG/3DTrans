@@ -246,11 +246,6 @@ We report the **zero-shot** cross-dataset (Waymo-to-nuScenes) adaptation results
 * Our pre-training 3D point cloud task is based on [ONCE Dataset](https://once-for-auto-driving.github.io/). Thanks ONCE Development Team for their inspiring data release.
 
 
-<!-- ## Related Projects
-- Welcome to see [SUG](https://github.com/SiyuanHuang95/SUG) for exploring the possibilities of adapting a model to multiple
-unseen domains and studying how to leverage the feature’s multi-modal information residing in a single dataset. You can also use [SUG](https://github.com/SiyuanHuang95/SUG) to obtain generalizable features by means of a single dataset, which can obtain good results on unseen domains or datasets. -->
-
-
 ## Technical Papers
 ```
 @misc{3dtrans2023,
@@ -291,10 +286,10 @@ unseen domains and studying how to leverage the feature’s multi-modal informat
 ```
 
 ```
-@article{huang2023sug,
+@inproceedings{huang2023sug,
   title={SUG: Single-dataset Unified Generalization for 3D Point Cloud Classification},
   author={Huang, Siyuan and Zhang, Bo and Shi, Botian and Gao, Peng and Li, Yikang and Li, Hongsheng},
-  journal={arXiv preprint arXiv:2305.09160},
+  booktitle={Proceedings of the 31th ACM International Conference on Multimedia},
   year={2023}
 }
 ```
