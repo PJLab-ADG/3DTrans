@@ -14,7 +14,7 @@
 * Semi-Supervised Domain Adaptation (SSDA) for 3D Point Clouds
 * Multi-dateset Domain Fusion (MDF) for 3D Point Clouds
 
-2) We implement the **Scablable Pre-training Techniques** which can continuously enhance the model performance for the downstream tasks, as more pre-training data are fed into our pre-training network:
+2) We implement the **Scalable Pre-training Techniques** which can continuously enhance the model performance for the downstream tasks, as more pre-training data are fed into our pre-training network:
 * AD-PT: Autonomous Driving Pre-Training with Large-scale Point Cloud Dataset
 * SPOT: Scalable 3D Pre-training via Occupancy Prediction for Autonomous Driving
 
@@ -34,7 +34,7 @@
     - [ADA Results](#ada-results)
     - [SSDA Results](#ssda-results)
     - [MDF Results](#mdf-results)
-- [Scablable Pre-training Techniques@3DTrans](#getting-started)
+- [Scalable Pre-training Techniques@3DTrans](#getting-started)
   - [Model Zoo:](#model-zoo)
     - [AD-PT Results](#ad-pt-results)
     - [ReSimAD Results](#resimad-results)
@@ -215,9 +215,10 @@ Here, we report the Waymo-and-nuScenes consolidation results. The models are joi
 <!-- Based on our research progress on the cross-domain adaptation of multiple autonomous driving datasets, we can utilize the **multi-source datasets** for performing the pre-training task. Here, we present several unsupervised and self-supervised pre-training implementations (including [PointContrast](https://arxiv.org/abs/2007.10985)). -->
 
 
-### ReSimAD Results
+### ReSimAD
+Here, we give the [Download Link]() of our reconstruction-simulation dataset by the ReSimAD, consisting of nuScenes-like, KITTI-like, ONCE-like, and Waymo-like datasets that generate target-domain-like simulation points.
 
-We report the **zero-shot** cross-dataset (Waymo-to-nuScenes) adaptation results using the BEV/3D AP performance as the evaluation metric for a fair comparison. Please refer to [ReSimAD]() for more details.
+We report the **zero-shot** cross-dataset (Waymo-to-nuScenes) adaptation results using the BEV/3D AP performance as the evaluation metric for a fair comparison. Please refer to [ReSimAD](./tools/cfgs/ReSimAD) for more details.
 
 
 |              Methods                 | training time | Adaptation | Car@R40    |  Ckpt |
