@@ -7,7 +7,7 @@
 
 # 3DTrans: An Open-source Codebase for Continuous Learning towards Autonomous Driving Task
 
-`3DTrans` includes **Transfer Learning Techniques** and **Scablable Pre-training Techniques** for tackling the continuous learning issue on autonomous driving as follows.
+`3DTrans` includes **Transfer Learning Techniques** and **Scalable Pre-training Techniques** for tackling the continuous learning issue on autonomous driving as follows.
 1) We implement the **Transfer Learning Techniques** consisting of **four** functions:
 * Unsupervised Domain Adaptation (UDA) for 3D Point Clouds
 * Active Domain Adaptation (ADA) for 3D Point Clouds
@@ -56,7 +56,7 @@
 - [x] Our `3DTrans` supported the Unsupervised Domain Adaptation (UDA) of 3D Object Detection for deploying a well-trained source model to an unlabeled target domain (updated on July 2022).
 - [x] We calculate the distribution of the object-size for each public AD dataset in [object-size statistics](docs/STATISTICAL_RESULTS.md)
 
-<!-- :rocket: We are actively updating this repository currently, and more **cross-dataset fusion solutions** (including domain attention and mixture-of-experts) and more **low-cost data sampling strategy** will be supported by 3DTrans in the furture, which aims to boost the generalization ability and adaptability of the existing state-of-the-art models. :rocket: -->
+<!-- :rocket: We are actively updating this repository currently, and more **cross-dataset fusion solutions** (including domain attention and mixture-of-experts) and more **low-cost data sampling strategy** will be supported by 3DTrans in the future, which aims to boost the generalization ability and adaptability of the existing state-of-the-art models. :rocket: -->
 
 We expect this repository will inspire the research of 3D model generalization since it will push the limits of perceptual performance. :tokyo_tower:
 
@@ -248,11 +248,11 @@ We report the **zero-shot** cross-dataset (Waymo-to-nuScenes) adaptation results
 
 ## Technical Papers
 ```
-@misc{3dtrans2023,
-    title={3DTrans: An Open-source Codebase for Continuous Learning towards Autonomous Driving Task},
-    author={3DTrans Development Team},
-    howpublished = {\url{https://github.com/PJLab-ADG/3DTrans}},
-    year={2023}
+@software{Zhang_3DTrans_An_Open-source,
+author = {Zhang, Bo and Yuan, Jiakang and Yan, Xiangchao},
+license = {Apache-2.0},
+title = {{3DTrans: An Open-source Codebase for Continuous Learning towards Autonomous Driving Task}},
+url = {https://github.com/BOBrown/CCDA_LGFA}
 }
 ```
 
