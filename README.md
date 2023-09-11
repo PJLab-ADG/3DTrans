@@ -37,7 +37,7 @@
 - [Scalable Pre-training Techniques@3DTrans](#getting-started)
   - [Model Zoo:](#model-zoo)
     - [AD-PT Results](#ad-pt-results)
-    - [ReSimAD Results](#resimad-results)
+    - [ReSimAD](#resimad)
 - [Visualization Tools for 3DTrans](#visualization-tools-for-3dtrans)
 - [3DTrans Framework Introduction](docs/GETTING_STARTED_3DTrans.md) 
 - [Acknowledge](#acknowledge)
@@ -45,7 +45,7 @@
 
 
 ## News :fire:
-- [x] We will release the Reconstruction-Simulation Dataset obtained using the [ReSimAD]() method (updated on Sep. 2023).
+- [x] We will release the [Reconstruction-Simulation Dataset]() obtained using the [ReSimAD]() method (updated on Sep. 2023).
 - [x] We will release all codes of AD-PT, see [AD-PT](docs/GETTING_STARTED_PRETRAIN.md) for all details (updated on Sep. 2023).
 - [x] We released the AD-PT pre-trained checkpoints, see <a href=./docs/GETTING_STARTED_PRETRAIN.md#once-ckpt>AD-PT pre-trained checkpoints</a> for pre-trained checkpoints (updated on Aug. 2023).
 - [x]  Based on `3DTrans`, we achieved significant performance gains on a series of downstream perception benchmarks including Waymo, nuScenes, and KITTI, under different baseline models like PV-RCNN++, SECOND, CenterPoint, PV-RCNN (updated on Jun. 2023).
@@ -217,6 +217,8 @@ Here, we report the Waymo-and-nuScenes consolidation results. The models are joi
 
 ### ReSimAD
 Here, we give the [Download Link]() of our reconstruction-simulation dataset by the ReSimAD, consisting of nuScenes-like, KITTI-like, ONCE-like, and Waymo-like datasets that generate target-domain-like simulation points.
+
+Specifically, please refer to [LiDARSimLib](https://github.com/PJLab-ADG/LiDARSimLib-and-Placement-Evaluation) for the technical details of simulating the target-domain-like points based on the reconstructed meshes. For perception module, please refer to [PV-RCNN](./tools/cfgs/ReSimAD/nuscenes/pvrcnn_nuScenes_ReSimAD.yaml)  and [PV-RCNN++](./tools/cfgs/ReSimAD/nuscenes/pvrcnn_plus_nuScenes_ReSimAD.yaml) for model training and evaluation.
 
 We report the **zero-shot** cross-dataset (Waymo-to-nuScenes) adaptation results using the BEV/3D AP performance as the evaluation metric for a fair comparison. Please refer to [ReSimAD](./tools/cfgs/ReSimAD) for more details.
 
