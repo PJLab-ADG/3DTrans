@@ -45,8 +45,8 @@
 
 
 ## News :fire:
-- [x] We will release the [Reconstruction-Simulation Dataset]() obtained using the [ReSimAD]() method (updated on Sep. 2023).
-- [x] We will release all codes of AD-PT, see [AD-PT](docs/GETTING_STARTED_PRETRAIN.md) for all details (updated on Sep. 2023).
+- [x] We will release the [Reconstruction-Simulation Dataset]() obtained using the [ReSimAD](https://arxiv.org/abs/2309.05527) method (updated on Sep. 2023).
+- [x] We will release all codes of AD-PT [here](docs/GETTING_STARTED_PRETRAIN.md), see [AD-PT](https://arxiv.org/abs/2306.00612) for all details (updated on Sep. 2023).
 - [x] We released the AD-PT pre-trained checkpoints, see <a href=./docs/GETTING_STARTED_PRETRAIN.md#once-ckpt>AD-PT pre-trained checkpoints</a> for pre-trained checkpoints (updated on Aug. 2023).
 - [x]  Based on `3DTrans`, we achieved significant performance gains on a series of downstream perception benchmarks including Waymo, nuScenes, and KITTI, under different baseline models like PV-RCNN++, SECOND, CenterPoint, PV-RCNN (updated on Jun. 2023).
 - [x] Our `3DTrans` supported the Semi-Supervised Domain Adaptation (SSDA) for 3D Object Detection (updated on Nov. 2022).
@@ -210,13 +210,30 @@ Here, we report the Waymo-and-nuScenes consolidation results. The models are joi
 
 
 &ensp;
-### AD-PT Results
+### AD-PT Results on Waymo
 
 <!-- Based on our research progress on the cross-domain adaptation of multiple autonomous driving datasets, we can utilize the **multi-source datasets** for performing the pre-training task. Here, we present several unsupervised and self-supervised pre-training implementations (including [PointContrast](https://arxiv.org/abs/2007.10985)). -->
+AD-PT demonstrates strong generalization learning ability on 3D points. We first pre-train the 3D backbone and 2D backbone using the [AD-PT](https://arxiv.org/abs/2306.00612) on ONCE dataset (from 100K to 1M data), and fine-tune the model on different datasets. Here, we report the results of fine-tuning on Waymo.
+
+|                                                                                      | Data amount | Overall | Vehicle                | Pedestrian | Cyclist |
+| ------------------------------------------------------------------------------------ | ------------- | --------------------------- | ------- | -------- | -----|
+| [SECOND (From scratch)]()              | 3%  |   52.00 / 37.70 | 58.11 / 57.44 | 51.34 / 27.38 | 46.57 / 28.28  |
+| [SECOND (AD-PT)]()                     | 3%  |   **55.41** / **51.78** | 60.53 / 59.93 | 54.91 / 45.78 | 50.79 / 49.65  |
+| [SECOND (From scratch)]()              | 20% |   60.62 / 56.86 | 64.26 / 63.73 | 59.72 / 50.38 | 57.87 / 56.48  |
+| [SECOND (AD-PT)]()                     | 20% |   **61.26** / **57.69** | 64.54 / 64.00 | 60.25 / 51.21 | 59.00 / 57.86  |
+| [CenterPoint (From scratch)]()         | 3%  |   59.00 / 56.29 | 57.12 / 56.57 | 58.66 / 52.44 | 61.24 / 59.89  |
+| [CenterPoint (AD-PT)]()                | 3%  |   **61.21** / **58.46** | 60.35 / 59.79 | 60.57 / 54.02 | 62.73 / 61.57  |
+| [CenterPoint (From scratch)]()         | 20% |   66.47 / 64.01 | 64.91 / 64.42 | 66.03 / 60.34 | 68.49 / 67.28  |
+| [CenterPoint (AD-PT)]()                | 20% |   **67.17** / **64.65** | 65.33 / 64.83 | 67.16 / 61.20 | 69.39 / 68.25  |
+| [PV-RCNN++ (From scratch)]()           | 3%  |   63.81 / 61.10 | 64.42 / 63.93 | 64.33 / 57.79 | 62.69 / 61.59  |
+| [PV-RCNN++ (AD-PT)]()                  | 3%  |   **68.33** / **65.69** | 68.17 / 67.70 | 68.82 / 62.39 | 68.00 / 67.00  |
+| [PV-RCNN++ (From scratch)]()           | 20% |   69.97 / 67.58 | 69.18 / 68.75 | 70.88 / 65.21 | 69.84 / 68.77  |
+| [PV-RCNN++ (AD-PT)]()                  | 20% |   **71.55** / **69.23** | 70.62 / 70.19 | 72.36 / 66.82 | 71.69 / 70.70  |
+
 
 
 ### ReSimAD
-Here, we give the [Download Link]() of our reconstruction-simulation dataset by the ReSimAD, consisting of nuScenes-like, KITTI-like, ONCE-like, and Waymo-like datasets that generate target-domain-like simulation points.
+Here, we give the [Download Link]() of our reconstruction-simulation dataset by the [ReSimAD](https://arxiv.org/abs/2309.05527), consisting of nuScenes-like, KITTI-like, ONCE-like, and Waymo-like datasets that generate target-domain-like simulation points.
 
 Specifically, please refer to [LiDARSimLib](https://github.com/PJLab-ADG/LiDARSimLib-and-Placement-Evaluation) for the technical details of simulating the target-domain-like points based on the reconstructed meshes. For perception module, please refer to [PV-RCNN](./tools/cfgs/ReSimAD/nuscenes/pvrcnn_nuScenes_ReSimAD.yaml)  and [PV-RCNN++](./tools/cfgs/ReSimAD/nuscenes/pvrcnn_plus_nuScenes_ReSimAD.yaml) for model training and evaluation.
 
