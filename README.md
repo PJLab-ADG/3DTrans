@@ -242,10 +242,10 @@ We report the **zero-shot** cross-dataset (Waymo-to-nuScenes) adaptation results
 
 |              Methods                 | training time | Adaptation | Car@R40    |  Ckpt |
 |---------------------------------------------|-------------:|:-----------:|:------------:|---------------:|
-[PV-RCNN](./tools/cfgs/DA/waymo_nusc/source_only/pvrcnn_old_anchor_nusc.yaml) | ~23 hours| Source-only | 31.02 / 17.75 |  Not Avaliable (Waymo License) |
+[PV-RCNN](./tools/cfgs/DA/waymo_nusc/source_only/pvrcnn_old_anchor_nusc.yaml) | ~23 hours| Source-only | 31.02 / 17.75 |  Not Available (Waymo License) |
 [PV-RCNN](./tools/cfgs/DA/waymo_nusc/pvrcnn_st3d_feat_3.yaml) | ~8 hours| ST3D | 36.42 / 22.99 | - | 
 [PV-RCNN](./tools/cfgs/ReSimAD/nuscenes/pvrcnn_nuScenes_ReSimAD.yaml) | ~8 hours| **ReSimAD** | 37.85 / 21.33 | [ReSimAD_ckpt](https://drive.google.com/file/d/18zMP2h11Xxl2fnDW_bWI9-FHb-9F6Nks/view?usp=sharing) |
-[PV-RCNN++](./tools/cfgs/DA/waymo_nusc/source_only/pv_rcnn_plus_feat_3_vehi.yaml) | ~20 hours| Source-only | 29.93 / 18.77 |  Not Avaliable (Waymo License) | 
+[PV-RCNN++](./tools/cfgs/DA/waymo_nusc/source_only/pv_rcnn_plus_feat_3_vehi.yaml) | ~20 hours| Source-only | 29.93 / 18.77 |  Not Available (Waymo License) | 
 [PV-RCNN++](./tools/cfgs/DA/waymo_nusc/pv_rcnn_plus_st3d_feat_3.yaml) | ~2.2 hours| ST3D |   34.68 / 17.17   | - |
 [PV-RCNN++](./tools/cfgs/ReSimAD/nuscenes/pvrcnn_plus_nuScenes_ReSimAD.yaml) | ~8 hours| **ReSimAD** | 40.73 / 23.72 | [ReSimAD_ckpt](https://drive.google.com/file/d/1_tnp-Byu8a1_o78V1JUxmD_m6vuRfV3p/view?usp=sharing) |
 
