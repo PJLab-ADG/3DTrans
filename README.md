@@ -235,7 +235,7 @@ AD-PT demonstrates strong generalization learning ability on 3D points. We first
 
 
 ### ReSimAD
-Here, we give the [Download Link]() of our reconstruction-simulation dataset by the [ReSimAD](https://arxiv.org/abs/2309.05527), consisting of nuScenes-like, KITTI-like, ONCE-like, and Waymo-like datasets that generate target-domain-like simulation points.
+Here, we give the [Download Link](docs/GETTING_STARTED_ReSim.md) of our reconstruction-simulation dataset by the [ReSimAD](https://arxiv.org/abs/2309.05527), consisting of nuScenes-like, KITTI-like, ONCE-like, and Waymo-like datasets that generate target-domain-like simulation points.
 
 Specifically, please refer to [LiDARSimLib](https://github.com/PJLab-ADG/LiDARSimLib-and-Placement-Evaluation) for the technical details of simulating the target-domain-like points based on the reconstructed meshes. For perception module, please refer to [PV-RCNN](./tools/cfgs/ReSimAD/nuscenes/pvrcnn_nuScenes_ReSimAD.yaml)  and [PV-RCNN++](./tools/cfgs/ReSimAD/nuscenes/pvrcnn_plus_nuScenes_ReSimAD.yaml) for model training and evaluation.
 
