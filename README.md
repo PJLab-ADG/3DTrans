@@ -45,7 +45,7 @@
 
 
 ## News :fire:
-- [x] We will release the [Reconstruction-Simulation Dataset]() obtained using the [ReSimAD](https://arxiv.org/abs/2309.05527) method (updated on Sep. 2023).
+- [x] We will release the [Reconstruction-Simulation Dataset](docs/GETTING_STARTED_ReSim.md) obtained using the [ReSimAD](https://arxiv.org/abs/2309.05527) method (updated on Sep. 2023).
 - [x] We will release all codes of AD-PT [here](docs/GETTING_STARTED_PRETRAIN.md), see [AD-PT](https://arxiv.org/abs/2306.00612) for all details (updated on Sep. 2023).
 - [x] We released the AD-PT pre-trained checkpoints, see <a href=./docs/GETTING_STARTED_PRETRAIN.md#once-ckpt>AD-PT pre-trained checkpoints</a> for pre-trained checkpoints (updated on Aug. 2023).
 - [x]  Based on `3DTrans`, we achieved significant performance gains on a series of downstream perception benchmarks including Waymo, nuScenes, and KITTI, under different baseline models like PV-RCNN++, SECOND, CenterPoint, PV-RCNN (updated on Jun. 2023).
@@ -82,7 +82,9 @@ You may refer to [INSTALL.md](docs/INSTALL.md) for the installation of `3DTrans`
 
 * Please refer to [Readme for MDF](docs/GETTING_STARTED_MDF.md) for understanding the problem definition of MDF and performing the MDF joint-training process.
 
-- Please refer to [Readme for Scalable Pre-training](docs/GETTING_STARTED_PRETRAIN.md) for starting the journey of 3D perception model pre-training.
+* Please refer to [Readme for ReSimAD](docs/GETTING_STARTED_ReSim.md) for [ReSimAD implementation](https://arxiv.org/abs/2309.05527).
+
+* Please refer to [Readme for Scalable Pre-training](docs/GETTING_STARTED_PRETRAIN.md) for starting the journey of 3D perception model pre-training.
 
 
 ## Model Zoo
