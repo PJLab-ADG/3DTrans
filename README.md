@@ -14,9 +14,9 @@
 * Semi-Supervised Domain Adaptation (SSDA) for 3D Point Clouds
 * Multi-dateset Domain Fusion (MDF) for 3D Point Clouds
 
-2) We implement the **Scalable Pre-training Techniques** which can continuously enhance the model performance for the downstream tasks, as more pre-training data are fed into our pre-training network:
-* AD-PT: Autonomous Driving Pre-Training with Large-scale Point Cloud Dataset
-* SPOT: Scalable 3D Pre-training via Occupancy Prediction for Autonomous Driving
+2) We implement the **Scalable Pre-training** which can continuously enhance the model performance for the downstream tasks, as more pre-training data are fed into our pre-training network:
+* [AD-PT: Autonomous Driving Pre-Training with Large-scale Point Cloud Dataset](https://arxiv.org/abs/2306.00612)
+* [SPOT: Scalable 3D Pre-training via Occupancy Prediction for Autonomous Driving](https://arxiv.org/abs/2309.10527)
 
 
 **Team Home**:
@@ -36,7 +36,7 @@
     - [MDF Results](#mdf-results)
 - [Scalable Pre-training Techniques@3DTrans](#getting-started)
   - [Model Zoo:](#model-zoo)
-    - [AD-PT Results](#ad-pt-results)
+    - [AD-PT Results](#ad-pt-results-on-waymo)
     - [ReSimAD](#resimad)
 - [Visualization Tools for 3DTrans](#visualization-tools-for-3dtrans)
 - [3DTrans Framework Introduction](docs/GETTING_STARTED_3DTrans.md) 
@@ -45,9 +45,10 @@
 
 
 ## News :fire:
-- [x] We will release the [Reconstruction-Simulation Dataset](docs/GETTING_STARTED_ReSim.md) obtained using the [ReSimAD](https://arxiv.org/abs/2309.05527) method (updated on Sep. 2023).
+- [x] [SPOT](https://arxiv.org/abs/2309.10527) shows that occupancy prediction is a promising pre-training method for general and scalable 3D representation learning, and see Figure 1 of SPOT paper for the inspiring experiment results (updated on Sep. 2023).
+- [x] We have released the [Reconstruction-Simulation Dataset](docs/GETTING_STARTED_ReSim.md) obtained using the [ReSimAD](https://arxiv.org/abs/2309.05527) method (updated on Sep. 2023).
 - [x] We will release all codes of AD-PT [here](docs/GETTING_STARTED_PRETRAIN.md), see [AD-PT](https://arxiv.org/abs/2306.00612) for all details (updated on Sep. 2023).
-- [x] We released the AD-PT pre-trained checkpoints, see <a href=./docs/GETTING_STARTED_PRETRAIN.md#once-ckpt>AD-PT pre-trained checkpoints</a> for pre-trained checkpoints (updated on Aug. 2023).
+- [x] We have released the AD-PT pre-trained checkpoints, see [AD-PT pre-trained checkpoints]( <./docs/GETTING_STARTED_PRETRAIN.md#pre-training-using-ad-pt>) for pre-trained checkpoints (updated on Aug. 2023).
 - [x]  Based on `3DTrans`, we achieved significant performance gains on a series of downstream perception benchmarks including Waymo, nuScenes, and KITTI, under different baseline models like PV-RCNN++, SECOND, CenterPoint, PV-RCNN (updated on Jun. 2023).
 - [x] Our `3DTrans` supported the Semi-Supervised Domain Adaptation (SSDA) for 3D Object Detection (updated on Nov. 2022).
 - [x] Our `3DTrans` supported the Active Domain Adaptation (ADA) of 3D Object Detection for achieving a good trade-off between high performance and annotation cost (updated on Oct. 2022).
