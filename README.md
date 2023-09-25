@@ -44,8 +44,8 @@
 
 
 ## News :fire:
-- [x] [SPOT](https://arxiv.org/abs/2309.10527) shows that occupancy prediction is a promising pre-training method for general and scalable 3D representation learning, and see Figure 1 of SPOT paper for the inspiring experiment results (updated on Sep. 2023).
-- [x] We have released the [Reconstruction-Simulation Dataset](docs/GETTING_STARTED_ReSim.md) obtained using the [ReSimAD](https://arxiv.org/abs/2309.05527) method (updated on Sep. 2023).
+- [x] [SPOT](https://arxiv.org/abs/2309.10527) shows that occupancy prediction is a promising pre-training method for general and scalable 3D representation learning, and see [Figure 1](docs/SPOT.png) of SPOT paper for the inspiring experiment results (updated on Sep. 2023).
+- [x] We have released the [Reconstruction-Simulation Dataset](docs/GETTING_STARTED_ReSim.md) obtained using the [ReSimAD](#resimad) method (updated on Sep. 2023).
 - [x] We will release all codes of AD-PT [here](docs/GETTING_STARTED_PRETRAIN.md), see [AD-PT](https://arxiv.org/abs/2306.00612) for all details (updated on Sep. 2023).
 - [x] We have released the AD-PT pre-trained checkpoints, see [AD-PT pre-trained checkpoints]( <./docs/GETTING_STARTED_PRETRAIN.md#pre-training-using-ad-pt>) for pre-trained checkpoints (updated on Aug. 2023).
 - [x]  Based on `3DTrans`, we achieved significant performance gains on a series of downstream perception benchmarks including Waymo, nuScenes, and KITTI, under different baseline models like PV-RCNN++, SECOND, CenterPoint, PV-RCNN (updated on Jun. 2023).
@@ -71,6 +71,8 @@ We expect this repository will inspire the research of 3D model generalization s
 You may refer to [INSTALL.md](docs/INSTALL.md) for the installation of `3DTrans`.
 
 ## Getting Started
+<details>
+<summary>Getting Started for ALL Settings</summary>
 
 * Please refer to [Readme for Datasets](docs/GETTING_STARTED_DB.md) to prepare the dataset and convert the data into the 3DTrans format. Besides, 3DTrans supports the reading and writing data from **Ceph Petrel-OSS**, please refer to [Readme for Datasets](docs/GETTING_STARTED_DB.md) for more details.
 
@@ -85,7 +87,7 @@ You may refer to [INSTALL.md](docs/INSTALL.md) for the installation of `3DTrans`
 * Please refer to [Readme for ReSimAD](docs/GETTING_STARTED_ReSim.md) for [ReSimAD implementation](https://arxiv.org/abs/2309.05527).
 
 * Please refer to [Readme for Scalable Pre-training](docs/GETTING_STARTED_PRETRAIN.md) for starting the journey of 3D perception model pre-training.
-
+</details>
 
 ## Model Zoo
 
@@ -93,7 +95,7 @@ We could not provide the Waymo-related pretrained models due to [Waymo Dataset L
 
 ### Domain Transfer Results
 
-<details open>
+<details>
 <summary>UDA Results</summary>
 
 Here, we report the cross-dataset (Waymo-to-KITTI) adaptation results using the BEV/3D AP performance as the evaluation metric. Please refer to [Readme for UDA](docs/GETTING_STARTED_UDA.md) for experimental results of more cross-domain settings.
@@ -121,7 +123,7 @@ Here, we report the cross-dataset (Waymo-to-KITTI) adaptation results using the 
 
 </details>
 
-<details open>
+<details>
 <summary>ADA Results</summary>
 
 Here, we report the Waymo-to-KITTI adaptation results using the BEV/3D AP performance. Please refer to [Readme for ADA](docs/GETTING_STARTED_ADA.md) for experimental results of more cross-domain settings.
@@ -145,7 +147,7 @@ Here, we report the Waymo-to-KITTI adaptation results using the BEV/3D AP perfor
 
 </details>
 
-<details open>
+<details>
 <summary>SSDA Results</summary>
 
 We report the target domain results on Waymo-to-nuScenes adaptation using the BEV/3D AP performance as the evaluation metric, and Waymo-to-ONCE adaptation using ONCE evaluation metric. Please refer to [Readme for SSDA](docs/GETTING_STARTED_SSDA.md) for experimental results of more cross-domain settings.
@@ -185,7 +187,7 @@ We report the target domain results on Waymo-to-nuScenes adaptation using the BE
 
 </details>
 
-<details open>
+<details>
 <summary>MDF Results</summary>
 
 Here, we report the Waymo-and-nuScenes consolidation results. The models are jointly trained on Waymo and nuScenes datasets, and evaluated on Waymo using the mAP/mAHPH LEVEL_2 and nuScenes using the BEV/3D AP. Please refer to [Readme for MDF](docs/GETTING_STARTED_MDF.md) for more results.
@@ -221,9 +223,8 @@ Here, we report the Waymo-and-nuScenes consolidation results. The models are joi
 
 </details>
 
-&ensp;
 ### 3D Pre-training Results
-<details open>
+<details>
 <summary>AD-PT Results on Waymo</summary>
 
 <!-- Based on our research progress on the cross-domain adaptation of multiple autonomous driving datasets, we can utilize the **multi-source datasets** for performing the pre-training task. Here, we present several unsupervised and self-supervised pre-training implementations (including [PointContrast](https://arxiv.org/abs/2007.10985)). -->
