@@ -248,6 +248,10 @@ AD-PT demonstrates strong generalization learning ability on 3D points. We first
 
 
 ### ReSimAD
+
+<details>
+<summary>ReSimAD Implementation</summary>
+
 Here, we give the [Download Link](docs/GETTING_STARTED_ReSim.md) of our reconstruction-simulation dataset by the [ReSimAD](https://arxiv.org/abs/2309.05527), consisting of nuScenes-like, KITTI-like, ONCE-like, and Waymo-like datasets that generate target-domain-like simulation points.
 
 Specifically, please refer to [ReSimAD reconstruction](https://longtimenohack.com/hosted/neuralsim_23Q1/waymo_meshes_exp1_20x20_sorted_ds%3D8_2160p.mp4) for the point-based reconstruction meshes, and [PCSim](https://github.com/PJLab-ADG/LiDARSimLib-and-Placement-Evaluation) for the technical details of simulating the target-domain-like points based on the reconstructed meshes. For perception module, please refer to [PV-RCNN](./tools/cfgs/ReSimAD/nuscenes/pvrcnn_nuScenes_ReSimAD.yaml)  and [PV-RCNN++](./tools/cfgs/ReSimAD/nuscenes/pvrcnn_plus_nuScenes_ReSimAD.yaml) for model training and evaluation.
@@ -265,15 +269,23 @@ We report the **zero-shot** cross-dataset (Waymo-to-nuScenes) adaptation results
 [PV-RCNN++](./tools/cfgs/ReSimAD/nuscenes/pvrcnn_plus_nuScenes_ReSimAD.yaml) | ~8 hours| **ReSimAD** | 40.73 / 23.72 | [ReSimAD_ckpt](https://drive.google.com/file/d/1_tnp-Byu8a1_o78V1JUxmD_m6vuRfV3p/view?usp=sharing) |
 
 
+</details>
+
 ## Visualization Tools for 3DTrans
 
 - Our `3DTrans` supports the sequence-level visualization function [Quick Sequence Demo](docs/QUICK_SEQUENCE_DEMO.md) to continuously display the prediction results of ground truth of a selected scene.
 
-- **Visualization Demo**: 
+<details>
+<summary>Visualization Demo</summary>
+  
   - [Waymo Sequence-level Visualization Demo1](docs/seq_demo_waymo_bev.gif)
+
   - [Waymo Sequence-level Visualization Demo2](docs/seq_demo_waymo_fp.gif)
+
   - [nuScenes Sequence-level Visualization Demo](docs/seq_demo_nusc.gif)
+
   - [ONCE Sequence-level Visualization Demo](docs/seq_demo_once.gif)
+</details>
 
 ## Acknowledge
 * Our code is heavily based on [OpenPCDet v0.5.2](https://github.com/open-mmlab/OpenPCDet). Thanks OpenPCDet Development Team for their awesome codebase.
