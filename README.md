@@ -1,6 +1,8 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2303.06880-b31b1b.svg)](https://arxiv.org/abs/2303.06880)
 [![arXiv](https://img.shields.io/badge/arXiv-2303.05886-b31b1b.svg)](https://arxiv.org/abs/2303.05886)
-[![arXiv](https://img.shields.io/badge/arXiv-2303.05886-b31b1b.svg)](https://arxiv.org/abs/2306.00612)
+[![arXiv](https://img.shields.io/badge/arXiv-2306.00612-b31b1b.svg)](https://arxiv.org/abs/2306.00612)
+[![arXiv](https://img.shields.io/badge/arXiv-2309.05527-b31b1b.svg)](https://arxiv.org/abs/2309.05527)
+[![arXiv](https://img.shields.io/badge/arXiv-2309.10527-b31b1b.svg)](https://arxiv.org/abs/2309.10527)
 [![GitHub issues](https://img.shields.io/github/issues/PJLab-ADG/3DTrans)](https://github.com/PJLab-ADG/3DTrans/issues)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/PJLab-ADG/3DTrans/pulls)
 
@@ -30,13 +32,10 @@
 - [Getting Started](#getting-started)
 - [Transfer Learning Techniques@3DTrans](#3dtrans-autonomous-driving-transfer-learning-codebase) 
   - [Model Zoo:](#model-zoo)
-    - [UDA Results](#uda-results)
-    - [ADA Results](#ada-results)
-    - [SSDA Results](#ssda-results)
-    - [MDF Results](#mdf-results)
+    - [Domain Transfer Results](#domain-transfer-results)
 - [Scalable Pre-training Techniques@3DTrans](#getting-started)
   - [Model Zoo:](#model-zoo)
-    - [AD-PT Results](#ad-pt-results-on-waymo)
+    - [AD-PT Results](#3d-pre-training-results)
     - [ReSimAD](#resimad)
 - [Visualization Tools for 3DTrans](#visualization-tools-for-3dtrans)
 - [3DTrans Framework Introduction](docs/GETTING_STARTED_3DTrans.md) 
@@ -92,7 +91,10 @@ You may refer to [INSTALL.md](docs/INSTALL.md) for the installation of `3DTrans`
 
 We could not provide the Waymo-related pretrained models due to [Waymo Dataset License Agreement](https://waymo.com/open/terms/), but you could easily achieve similar performance by training with the corresponding configs.
 
-### UDA Results:
+### Domain Transfer Results
+
+<details open>
+<summary>UDA Results</summary>
 
 Here, we report the cross-dataset (Waymo-to-KITTI) adaptation results using the BEV/3D AP performance as the evaluation metric. Please refer to [Readme for UDA](docs/GETTING_STARTED_UDA.md) for experimental results of more cross-domain settings.
 * All LiDAR-based models are trained with 4 NVIDIA A100 GPUs and are available for download. 
@@ -117,8 +119,10 @@ Here, we report the cross-dataset (Waymo-to-KITTI) adaptation results using the 
 | [PV-RCNN++](tools/cfgs/DA/waymo_kitti/source_only/pv_rcnn_plus_feat_3_vehi_full_train.yaml) | ~20 hours| Source-only | 67.68 / 20.82 | - |
 | [PV-RCNN++](tools/cfgs/DA/waymo_kitti/pv_rcnn_plus_post_SN_feat_3.yaml) | ~2.2 hours| Post-SN | 86.86 / 79.86 | [model-193M](https://drive.google.com/file/d/1wDNC5kyg8BihV4zEgY2VntA2V_3jeL-5/view?usp=share_link) |
 
+</details>
 
-### ADA Results:
+<details open>
+<summary>ADA Results</summary>
 
 Here, we report the Waymo-to-KITTI adaptation results using the BEV/3D AP performance. Please refer to [Readme for ADA](docs/GETTING_STARTED_ADA.md) for experimental results of more cross-domain settings.
 * All LiDAR-based models are trained with 4 NVIDIA A100 GPUs and are available for download. 
@@ -139,8 +143,10 @@ Here, we report the Waymo-to-KITTI adaptation results using the BEV/3D AP perfor
 | [Voxel R-CNN](tools/cfgs/ADA/waymo-kitti/voxelrcnn/active_TQS.yaml)                           | ~1.5h@2 A100  | TQS                         | 78.26 / 67.11 | [Model-72M](https://drive.google.com/file/d/1ByIEVQ9rn8mSXoyE8yY4441LduNNkqB-/view?usp=sharing)            |
 | [Voxel R-CNN](tools/cfgs/ADA/waymo-kitti/voxelrcnn/active_CLUE.yaml)              | ~1.5h@2 A100  | CLUE                        | 81.93 / 70.89 | [Model-72M](https://drive.google.com/file/d/1wDlmR9rqHna7zQSOb5ktf3bB0S1xVO_e/view?usp=sharing)            |
 
+</details>
 
-### SSDA Results:
+<details open>
+<summary>SSDA Results</summary>
 
 We report the target domain results on Waymo-to-nuScenes adaptation using the BEV/3D AP performance as the evaluation metric, and Waymo-to-ONCE adaptation using ONCE evaluation metric. Please refer to [Readme for SSDA](docs/GETTING_STARTED_SSDA.md) for experimental results of more cross-domain settings.
 * The domain adaptation time is measured with 4 NVIDIA A100 GPUs and PyTorch 1.8.1.
@@ -177,8 +183,10 @@ We report the target domain results on Waymo-to-nuScenes adaptation using the BE
 | [PV-RCNN++](tools/cfgs/once_models/sup_models/pv_rcnn_plus_anchor_3CLS.yaml) |  Labeled (4K) | Train from scracth | 79.78 |  35.91  |  63.18 | [model-188M](https://drive.google.com/file/d/187AomgxaRBTFpm3YqJ_UXp2Lg13t9OVs/view?usp=share_link) |
 | [PV-RCNN++](tools/cfgs/once_models/semi_learning_models/mt_pv_rcnn_plus_anchor_3CLS_small.yaml) |  Small Dataset (100K) | SESS | 80.02 |   46.24 |  66.41 |[model-188M](https://drive.google.com/file/d/1hEPwnwZVKSmPDE-7XO45dFMoOTanD-n1/view?usp=share_link) |
 
+</details>
 
-### MDF Results:
+<details open>
+<summary>MDF Results</summary>
 
 Here, we report the Waymo-and-nuScenes consolidation results. The models are jointly trained on Waymo and nuScenes datasets, and evaluated on Waymo using the mAP/mAHPH LEVEL_2 and nuScenes using the BEV/3D AP. Please refer to [Readme for MDF](docs/GETTING_STARTED_MDF.md) for more results.
 * All LiDAR-based models are trained with 8 NVIDIA A100 GPUs and are available for download. 
@@ -211,9 +219,12 @@ Here, we report the Waymo-and-nuScenes consolidation results. The models are joi
 | [PV-RCNN++-Uni3D](./tools/cfgs/MDF/waymo_nusc/waymo_nusc_pvplus_feat_3_uni3d.yaml) | Uni3D | 68.55 / 68.08  |  69.83 / 63.60 |  64.90 / 63.91   | 62.51 / 44.16 |  33.82 / 27.18  |  22.48 / 19.30   |
 | [PV-RCNN++-DT](./tools/cfgs/MDF/waymo_nusc/waymo_nusc_pvplus_feat_3_domain_attention.yaml) | Domain Attention | 68.51 / 68.05 |  69.81 / 63.58  |  64.39 / 63.43  | 62.33 / 44.16  |  33.44 / 26.94 | 21.64 / 18.52 |
 
+</details>
 
 &ensp;
-### AD-PT Results on Waymo
+### 3D Pre-training Results
+<details open>
+<summary>AD-PT Results on Waymo</summary>
 
 <!-- Based on our research progress on the cross-domain adaptation of multiple autonomous driving datasets, we can utilize the **multi-source datasets** for performing the pre-training task. Here, we present several unsupervised and self-supervised pre-training implementations (including [PointContrast](https://arxiv.org/abs/2007.10985)). -->
 AD-PT demonstrates strong generalization learning ability on 3D points. We first pre-train the 3D backbone and 2D backbone using the [AD-PT](https://arxiv.org/abs/2306.00612) on ONCE dataset (from 100K to 1M data), and fine-tune the model on different datasets. Here, we report the results of fine-tuning on Waymo.
@@ -232,13 +243,13 @@ AD-PT demonstrates strong generalization learning ability on 3D points. We first
 | [PV-RCNN++ (AD-PT)]()                  | 3%  |   **68.33** / **65.69** | 68.17 / 67.70 | 68.82 / 62.39 | 68.00 / 67.00  |
 | [PV-RCNN++ (From scratch)]()           | 20% |   69.97 / 67.58 | 69.18 / 68.75 | 70.88 / 65.21 | 69.84 / 68.77  |
 | [PV-RCNN++ (AD-PT)]()                  | 20% |   **71.55** / **69.23** | 70.62 / 70.19 | 72.36 / 66.82 | 71.69 / 70.70  |
-
+</details>
 
 
 ### ReSimAD
 Here, we give the [Download Link](docs/GETTING_STARTED_ReSim.md) of our reconstruction-simulation dataset by the [ReSimAD](https://arxiv.org/abs/2309.05527), consisting of nuScenes-like, KITTI-like, ONCE-like, and Waymo-like datasets that generate target-domain-like simulation points.
 
-Specifically, please refer to [LiDARSimLib](https://github.com/PJLab-ADG/LiDARSimLib-and-Placement-Evaluation) for the technical details of simulating the target-domain-like points based on the reconstructed meshes. For perception module, please refer to [PV-RCNN](./tools/cfgs/ReSimAD/nuscenes/pvrcnn_nuScenes_ReSimAD.yaml)  and [PV-RCNN++](./tools/cfgs/ReSimAD/nuscenes/pvrcnn_plus_nuScenes_ReSimAD.yaml) for model training and evaluation.
+Specifically, please refer to [ReSimAD reconstruction](https://longtimenohack.com/hosted/neuralsim_23Q1/waymo_meshes_exp1_20x20_sorted_ds%3D8_2160p.mp4) for the point-based reconstruction meshes, and [PCSim](https://github.com/PJLab-ADG/LiDARSimLib-and-Placement-Evaluation) for the technical details of simulating the target-domain-like points based on the reconstructed meshes. For perception module, please refer to [PV-RCNN](./tools/cfgs/ReSimAD/nuscenes/pvrcnn_nuScenes_ReSimAD.yaml)  and [PV-RCNN++](./tools/cfgs/ReSimAD/nuscenes/pvrcnn_plus_nuScenes_ReSimAD.yaml) for model training and evaluation.
 
 We report the **zero-shot** cross-dataset (Waymo-to-nuScenes) adaptation results using the BEV/3D AP performance as the evaluation metric for a fair comparison. Please refer to [ReSimAD](./tools/cfgs/ReSimAD) for more details.
 
@@ -271,15 +282,6 @@ We report the **zero-shot** cross-dataset (Waymo-to-nuScenes) adaptation results
 
 ## Technical Papers
 ```
-@software{Zhang_3DTrans_An_Open-source,
-author = {Zhang, Bo and Yuan, Jiakang and Yan, Xiangchao},
-license = {Apache-2.0},
-title = {{3DTrans: An Open-source Codebase for Continuous Learning towards Autonomous Driving Task}},
-url = {https://github.com/BOBrown/CCDA_LGFA}
-}
-```
-
-```
 @inproceedings{zhang2023uni3d,
   title={Uni3D: A Unified Baseline for Multi-dataset 3D Object Detection},
   author={Zhang, Bo and Yuan, Jiakang and Shi, Botian and Chen, Tao and Li, Yikang and Qiao, Yu},
@@ -300,13 +302,33 @@ url = {https://github.com/BOBrown/CCDA_LGFA}
 ```
 
 ```
-@article{yuan2023AD-PT,
+@inproceedings{yuan2023AD-PT,
   title={AD-PT: Autonomous Driving Pre-Training with Large-scale Point Cloud Dataset},
   author={Yuan, Jiakang and Zhang, Bo and Yan, Xiangchao and Chen, Tao and Shi, Botian and Li, Yikang and Qiao, Yu},
-  journal={arXiv preprint arXiv:2306.00612},
+  booktitle={Advances in Neural Information Processing Systems},
   year={2023}
 }
 ```
+
+```
+@article{zhang2023resimad,
+  title={ReSimAD: Zero-Shot 3D Domain Transfer for Autonomous Driving with Source Reconstruction and Target Simulation},
+  author={Zhang, Bo and Cai, Xinyu and Yuan, Jiakang and Yang, Donglin and Guo, Jianfei and Xia, Renqiu and Shi, Botian and Dou, Min and Chen, Tao and Liu, Si and others},
+  journal={arXiv preprint arXiv:2309.05527},
+  year={2023}
+}
+```
+
+```
+@article{yan2023spot,
+  title={SPOT: Scalable 3D Pre-training via Occupancy Prediction for Autonomous Driving},
+  author={Yan, Xiangchao and Chen, Runjian and Zhang, Bo and Yuan, Jiakang and Cai, Xinyu and Shi, Botian and Shao, Wenqi and Yan, Junchi and Luo, Ping and Qiao, Yu},
+  journal={arXiv preprint arXiv:2309.10527},
+  year={2023}
+}
+```
+
+
 
 ```
 @inproceedings{huang2023sug,
