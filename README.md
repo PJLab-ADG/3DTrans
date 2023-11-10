@@ -323,6 +323,16 @@ We report the **zero-shot** cross-dataset (Waymo-to-nuScenes) adaptation results
 }
 ```
 
+
+```
+@inproceedings{huang2023sug,
+  title={SUG: Single-dataset Unified Generalization for 3D Point Cloud Classification},
+  author={Huang, Siyuan and Zhang, Bo and Shi, Botian and Gao, Peng and Li, Yikang and Li, Hongsheng},
+  booktitle={Proceedings of the 31th ACM International Conference on Multimedia},
+  year={2023}
+}
+```
+
 ```
 @article{zhang2023resimad,
   title={ReSimAD: Zero-Shot 3D Domain Transfer for Autonomous Driving with Source Reconstruction and Target Simulation},
@@ -337,17 +347,6 @@ We report the **zero-shot** cross-dataset (Waymo-to-nuScenes) adaptation results
   title={SPOT: Scalable 3D Pre-training via Occupancy Prediction for Autonomous Driving},
   author={Yan, Xiangchao and Chen, Runjian and Zhang, Bo and Yuan, Jiakang and Cai, Xinyu and Shi, Botian and Shao, Wenqi and Yan, Junchi and Luo, Ping and Qiao, Yu},
   journal={arXiv preprint arXiv:2309.10527},
-  year={2023}
-}
-```
-
-
-
-```
-@inproceedings{huang2023sug,
-  title={SUG: Single-dataset Unified Generalization for 3D Point Cloud Classification},
-  author={Huang, Siyuan and Zhang, Bo and Shi, Botian and Gao, Peng and Li, Yikang and Li, Hongsheng},
-  booktitle={Proceedings of the 31th ACM International Conference on Multimedia},
   year={2023}
 }
 ```
