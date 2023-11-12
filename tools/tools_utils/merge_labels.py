@@ -99,10 +99,10 @@ def main(args):
 
 def parse_config():
     parser = argparse.ArgumentParser(description='arg parser')
-    parser.add_argument('--vehicle_pkl', type=str, default='')
-    parser.add_argument('--cyclist_pkl', type=str, default='')
-    parser.add_argument('--pedestrian_pkl',type=str, default='')
-    parser.add_argument('--raw_data_pkl', type=str, default='')
+    parser.add_argument('--vehicle_pkl', type=str, default='../output/vehi_cyclist_L_0.7_result.pkl')
+    parser.add_argument('--cyclist_pkl', type=str, default='../output/vehi_cyclist_L_0.7_result.pkl')
+    parser.add_argument('--pedestrian_pkl',type=str, default='../output/pede_L_0.7_result.pkl')
+    parser.add_argument('--raw_data_pkl', type=str, default='../data/once/once_infos_raw_large.pkl')
     parser.add_argument('--save_path', type=str, default='test_1.pkl')
     args = parser.parse_args()
     return args

@@ -86,7 +86,9 @@ You may refer to [INSTALL.md](docs/INSTALL.md) for the installation of `3DTrans`
 
 * Please refer to [Readme for ReSimAD](docs/GETTING_STARTED_ReSim.md) for [ReSimAD implementation](https://arxiv.org/abs/2309.05527).
 
-* Please refer to [Readme for Scalable Pre-training](docs/GETTING_STARTED_PRETRAIN.md) for starting the journey of 3D perception model pre-training.
+* Please refer to [Readme for AD-PT Pre-training](docs/GETTING_STARTED_PRETRAIN.md) for starting the journey of 3D perception pre-training using AD-PT.
+
+* Please refer to [Readme for PointContrast Pre-training](docs/GETTING_STARTED_PRETRAIN_PC.md) for 3D perception pre-training using PointContrast.
 </details>
 
 ## Model Zoo
