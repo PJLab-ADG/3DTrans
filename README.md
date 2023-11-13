@@ -14,7 +14,7 @@
 * Unsupervised Domain Adaptation (UDA) for 3D Point Clouds
 * Active Domain Adaptation (ADA) for 3D Point Clouds
 * Semi-Supervised Domain Adaptation (SSDA) for 3D Point Clouds
-* Multi-dateset Domain Fusion (MDF) for 3D Point Clouds
+* Multi-dateset Domain Fusion (MDF) for 3D Point Clouds 
 
 2) We implement the **Scalable Pre-training** which can continuously enhance the model performance for the downstream tasks, as more pre-training data are fed into our pre-training network:
 * [AD-PT: Autonomous Driving Pre-Training with Large-scale Point Cloud Dataset](https://arxiv.org/abs/2306.00612)
