@@ -21,9 +21,6 @@
 * [SPOT: Scalable 3D Pre-training via Occupancy Prediction for Autonomous Driving](https://arxiv.org/abs/2309.10527)
 
 
-**Team Home**:
-- A Team Home for Member Information and Profile, [Project Link](https://bobrown.github.io/Team_3DTrans.github.io/)
-
 <!-- **This project is developed and maintained by Autonomous Driving Group [at] [Shanghai AI Laboratory](https://www.shlab.org.cn/) (ADLab).** -->
 
 ## Overview
@@ -292,7 +289,9 @@ We report the **zero-shot** cross-dataset (Waymo-to-nuScenes) adaptation results
 ## Acknowledge
 * Our code is heavily based on [OpenPCDet v0.5.2](https://github.com/open-mmlab/OpenPCDet). Thanks OpenPCDet Development Team for their awesome codebase.
 
-* Our pre-training 3D point cloud task is based on [ONCE Dataset](https://once-for-auto-driving.github.io/). Thanks ONCE Development Team for their inspiring data release.
+- A Team Home for Member Information and Profile, [Project Link](https://bobrown.github.io/Team_3DTrans.github.io/)
+
+<!-- * Our pre-training 3D point cloud task is based on [ONCE Dataset](https://once-for-auto-driving.github.io/). Thanks ONCE Development Team for their inspiring data release. -->
 
 
 ## Technical Papers
