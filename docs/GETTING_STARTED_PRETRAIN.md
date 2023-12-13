@@ -14,25 +14,47 @@ Please download and preprocess the point cloud datasets according to the [datase
 - Download the pseudo-labeled data from ONCE unlabeled dataset
 
   We pseudo-label the unlabeled data and give the pseudo-labeled results here:
-  [once_small_pseudo.pkl](https://drive.google.com/file/d/1LqXukuBPSyiEN_7XlfXJGJP5mAMbbzrW/view?usp=sharing), [once_medium_pseudo.pkl](https://drive.google.com/file/d/1Xkk-sO4F2-BpYDchb-NzMJGjgoUHVoP0/view?usp=sharing), and [once_large_pseudo.pkl]().
+  [once_small_pseudo.pkl](https://drive.google.com/file/d/1LqXukuBPSyiEN_7XlfXJGJP5mAMbbzrW/view?usp=sharing), [once_medium_pseudo.pkl](https://drive.google.com/file/d/1Xkk-sO4F2-BpYDchb-NzMJGjgoUHVoP0/view?usp=sharing), and [once_large_pseudo.pkl](https://drive.google.com/file/d/1yyIq3KVQuZUHe0NFXE1wkJ1lXZlSFb-p/view?usp=sharing).
 
 ## How to run AD-PT
 
-Take pre-training on small pseudo label set as an example:
+- Take pre-training on small pseudo label set as an example:
 
-```shell script
-  sh scripts/PRETRAIN/dist_train_ad-pt.sh ${NUM_GPUS} \
-  --cfg_file ./cfgs/once_models/pretrain_models/once_ad-pt_pretrain_small.yaml
-```
+  ```shell script
+    cd tools
+    sh scripts/PRETRAIN/dist_train_ad-pt.sh ${NUM_GPUS} \
+    --cfg_file ./cfgs/once_models/pretrain_models/once_ad-pt_pretrain_small.yaml
+  ```
+
+    or
+
+  ```shell script
+    cd tools
+    sh scripts/PRETRAIN/slurm_train_ad-pt.sh ${PARTITION} ${JOB_NAME} ${NUM_NODES} \ 
+    --cfg_file ./cfgs/once_models/pretrain_models/once_ad-pt_pretrain_small.yaml
+  ```
+
+  Note you can choose small / medium / large pseudo set by changing the dataset config file (once_ad-pt_pretrain_small.yaml / once_ad-pt_pretrain_medium.yaml / once_ad-pt_pretrain_large.yaml)
+
+- Fine-tuning on downstream dataset:
+
+  ```shell script
+    cd tools
+    sh scripts/dist_train.sh ${NUM_GPUS} \
+    --cfg_file ./cfgs/waymo_models/pv_rcnn_plusplus_resnet.yaml \
+    --pretrained_model ${PRETRAINED_CHECKPOINT}
+  ```
 
   or
 
-```shell script
-  sh scripts/PRETRAIN/slurm_train_ad-pt.sh ${PARTITION} ${JOB_NAME} ${NUM_NODES} \ 
-  --cfg_file ./cfgs/once_models/pretrain_models/once_ad-pt_pretrain_small.yaml
-```
+  ```shell script
+    cd tools
+    sh scripts/slurm_train.sh ${PARTITION} ${JOB_NAME} ${NUM_NODES} \
+    --cfg_file ./cfgs/waymo_models/pv_rcnn_plusplus_resnet.yaml \
+    --pretrained_model ${PRETRAINED_CHECKPOINT}
+  ```
 
-Note you can choose small / medium / large pseudo set by changing the dataset config file (once_ad-pt_pretrain_small.yaml / once_ad-pt_pretrain_medium.yaml / once_ad-pt_pretrain_large.yaml)
+  ${PRETRAINED_CHECKPOINT} denotes the pre-trained checkpoints obtained using AD-PT method.
 
 ## AD-PT pre-trained checkpoints
 
