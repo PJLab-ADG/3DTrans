@@ -18,17 +18,21 @@ Please download and preprocess the point cloud datasets according to the [datase
 
 ## How to run AD-PT
 
+Take pre-training on small pseudo label set as an example:
+
 ```shell script
   sh scripts/PRETRAIN/dist_train_ad-pt.sh ${NUM_GPUS} \
-  --cfg_file ./cfgs/once_models/pretrain_models/once_ad-pt_pretrain.yaml
+  --cfg_file ./cfgs/once_models/pretrain_models/once_ad-pt_pretrain_small.yaml
 ```
 
   or
 
 ```shell script
   sh scripts/PRETRAIN/slurm_train_ad-pt.sh ${PARTITION} ${JOB_NAME} ${NUM_NODES} \ 
-  --cfg_file ./cfgs/once_models/pretrain_models/once_ad-pt_pretrain.yaml
+  --cfg_file ./cfgs/once_models/pretrain_models/once_ad-pt_pretrain_small.yaml
 ```
+
+Note you can choose small / medium / large pseudo set by changing the dataset config file (once_ad-pt_pretrain_small.yaml / once_ad-pt_pretrain_medium.yaml / once_ad-pt_pretrain_large.yaml)
 
 ## AD-PT pre-trained checkpoints
 

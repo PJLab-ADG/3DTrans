@@ -4,7 +4,7 @@ DATA_PATH: '../data/once'
 POINT_CLOUD_RANGE: [-75.2, -75.2, -5.0, 75.2, 75.2, 3.0]
 
 INFO_PATH: {
-    'train': [once_small_veh_cyc_ped_pseudo_12_5.pkl],
+    'train': [once_medium_pseudo.pkl],
     'val': [once_infos_val_vehicle.pkl],
     'test': [once_infos_test.pkl],
 }

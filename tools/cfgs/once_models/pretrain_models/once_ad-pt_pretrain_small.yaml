@@ -1,7 +1,7 @@
 CLASS_NAMES: ['Vehicle', 'Pedestrian', 'Cyclist']
 
 DATA_CONFIG:
-    _BASE_CONFIG_: cfgs/dataset_configs/once/PRETRAIN/once_ad-pt_ps.yaml
+    _BASE_CONFIG_: cfgs/dataset_configs/once/PRETRAIN/once_ad-pt_ps_small.yaml
 
 DATA_CONFIG_SRC_2:
     _BASE_CONFIG_: cfgs/dataset_configs/once/PRETRAIN/once_ad-pt_train.yaml
