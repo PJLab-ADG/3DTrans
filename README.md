@@ -41,9 +41,9 @@
 
 
 ## News :fire:
+- [x] **We have released all codes of AD-PT [here](docs/GETTING_STARTED_PRETRAIN.md)**, including: 1) pre-training and fine-tuning methods, 2) labeled and pseudo-labeled data, and 3) pre-trained checkpoints for fine-tuning. Please see [AD-PT](https://arxiv.org/abs/2306.00612) for more technical details (updated on Sep. 2023).
 - [x] [SPOT](https://arxiv.org/abs/2309.10527) shows that occupancy prediction is a promising pre-training method for general and scalable 3D representation learning, and see [Figure 1](docs/SPOT.png) of SPOT paper for the inspiring experiment results (updated on Sep. 2023).
 - [x] We have released the [Reconstruction-Simulation Dataset](docs/GETTING_STARTED_ReSim.md) obtained using the [ReSimAD](#resimad) method (updated on Sep. 2023).
-- [x] We will release all codes of AD-PT [here](docs/GETTING_STARTED_PRETRAIN.md), see [AD-PT](https://arxiv.org/abs/2306.00612) for all details (updated on Sep. 2023).
 - [x] We have released the AD-PT pre-trained checkpoints, see [AD-PT pre-trained checkpoints]( <./docs/GETTING_STARTED_PRETRAIN.md#pre-training-using-ad-pt>) for pre-trained checkpoints (updated on Aug. 2023).
 - [x]  Based on `3DTrans`, we achieved significant performance gains on a series of downstream perception benchmarks including Waymo, nuScenes, and KITTI, under different baseline models like PV-RCNN++, SECOND, CenterPoint, PV-RCNN (updated on Jun. 2023).
 - [x] Our `3DTrans` supported the Semi-Supervised Domain Adaptation (SSDA) for 3D Object Detection (updated on Nov. 2022).
