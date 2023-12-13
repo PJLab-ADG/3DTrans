@@ -2,7 +2,7 @@ from functools import partial
 
 import numpy as np
 
-from ...utils import common_utils
+from ...utils import common_utils, downsample_utils
 from . import augmentor_utils, database_sampler
 
 
@@ -281,6 +281,59 @@ class DataAugmentor(object):
                                                                  pyramids)
         data_dict['gt_boxes'] = gt_boxes
         data_dict['points'] = points
+        return data_dict
+    
+    def random_downsample(self, data_dict=None, config=None):
+        if data_dict is None:
+            return partial(self.random_downsample, config=config)
+
+        prob = config['PROB']
+        enable = np.random.choice([False, True], replace=False, p=[1-prob, prob])
+        # enable = np.random.choice([False, True], replace=False, p=[0.5, 0.5])
+        if enable:
+            points = data_dict['points']
+            theta, phi = downsample_utils.compute_angles(points)
+            label, centroids = downsample_utils.beam_label(theta, config['BEAM'])
+            idxs = np.argsort(centroids)
+            mask = downsample_utils.generate_mask(phi, config['BEAM'], label, idxs, config['BEAM_RATIO'], bin_ratio=1)
+            data_dict['points'] = points[mask]
+        return data_dict
+
+    def random_beam_sampling(self, data_dict=None, config=None):
+        if data_dict is None:
+            return partial(self.random_beam_sampling, config=config)
+        
+        num_rings = config['BEAM']
+        proj_fov_up, proj_fov_down = config['VFOV'][0], config['VFOV'][1]
+        points = data_dict['points']
+
+        points_interpolate = augmentor_utils.random_beam_sampling(points, num_rings, proj_fov_up, proj_fov_down)
+        points = np.concatenate([points[:, :points_interpolate.shape[-1]], points_interpolate], axis=0)
+        data_dict['points'] = points
+        return data_dict
+
+    def beam_resampling(self, data_dict=None, config=None):
+        if data_dict is None:
+            return partial(self.beam_resampling, config=config)
+        
+        enable = np.random.choice([False, True], replace=False, p=[0.3, 0.7])
+        if enable:
+            downsample = np.random.choice([False, True], replace=False, p=[0.5, 0.5])
+            if downsample:
+                points = data_dict['points']
+                theta, phi = downsample_utils.compute_angles(points)
+                label, centroids = downsample_utils.beam_label(theta, config['BEAM'])
+                idxs = np.argsort(centroids)
+                mask = downsample_utils.generate_mask(phi, config['BEAM'], label, idxs, config['BEAM_RATIO'], bin_ratio=1)
+                data_dict['points'] = points[mask]
+            else:
+                num_rings = config['BEAM']
+                proj_fov_up, proj_fov_down = config['VFOV'][0], config['VFOV'][1]
+                points = data_dict['points']
+
+                points_interpolate = augmentor_utils.random_beam_sampling(points, num_rings, proj_fov_up, proj_fov_down)
+                points = np.concatenate([points, points_interpolate], axis=0)
+                data_dict['points'] = points
         return data_dict
     
     def forward(self, data_dict):

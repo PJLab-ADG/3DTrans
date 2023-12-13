@@ -30,6 +30,8 @@ from .pv_rcnn_plusplus import SemiPVRCNNPlusPlus
 from .IASSD import IASSD
 from .semi_second import SemiSECOND, SemiSECONDIoU
 from .unsupervised_model.pvrcnn_plus_backbone import PVRCNN_PLUS_BACKBONE
+from .pv_rcnn_plusplus import PVRCNNPlusPlus_Bi_Pretrain
+
 
 __all__ = {
     'Detector3DTemplate': Detector3DTemplate,
@@ -65,7 +67,8 @@ __all__ = {
     'ActiveDualPVRCNN': ActivePVRCNN_DUAL,
     'SemiSECOND': SemiSECOND,
     'SemiSECONDIoU': SemiSECONDIoU,
-    'PVRCNN_PLUS_BACKBONE': PVRCNN_PLUS_BACKBONE
+    'PVRCNN_PLUS_BACKBONE': PVRCNN_PLUS_BACKBONE,
+    'PVRCNNPlusPlus_Bi_Pretrain': PVRCNNPlusPlus_Bi_Pretrain
 }
 
 

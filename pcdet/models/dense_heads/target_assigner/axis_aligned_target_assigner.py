@@ -213,3 +213,108 @@ class AxisAlignedTargetAssigner(object):
             'reg_weights': reg_weights,
         }
         return ret_dict
+
+    def assign_targets_with_mask(self, all_anchors, gt_boxes_with_classes, mask_inds):
+        """
+        Args:
+            all_anchors: [(N, 7), ...]
+            gt_boxes: (B, M, 8)
+        Returns:
+
+        """
+
+        bbox_targets = []
+        cls_labels = []
+        reg_weights = []
+
+        batch_size = gt_boxes_with_classes.shape[0]
+        #For Pseudo-labeling Process, the value in gt_classes is '-1', which is abnormal
+        gt_classes = gt_boxes_with_classes[:, :, -1]
+        gt_boxes = gt_boxes_with_classes[:, :, :-1]
+        class_num = len(self.anchor_class_names)
+        for k in range(batch_size):
+            cur_gt = gt_boxes[k]
+            cnt = cur_gt.__len__() - 1
+            while cnt > 0 and cur_gt[cnt].sum() == 0:
+                cnt -= 1
+            cur_gt = cur_gt[:cnt + 1]
+            cur_gt_classes = gt_classes[k][:cnt + 1].int()
+
+            target_list = []
+            for anchor_class_name, anchors in zip(self.anchor_class_names, all_anchors):
+                if cur_gt_classes.shape[0] > 1:
+                    #mask = torch.from_numpy(self.class_names[cur_gt_classes.cpu() - 1] == anchor_class_name) #old version
+                    mask = torch.from_numpy(self.class_names[cur_gt_classes.cpu().abs() - 1] == anchor_class_name) #pseudo-labeling version
+                else:
+                    #old version
+                    # mask = torch.tensor([self.class_names[c - 1] == anchor_class_name
+                    #                      for c in cur_gt_classes], dtype=torch.bool)
+                    #pseudo-labeling version
+                    mask = torch.tensor([self.class_names[torch.abs(c) - 1] == anchor_class_name
+                                         for c in cur_gt_classes], dtype=torch.bool)
+
+                if self.use_multihead:
+                    anchors = anchors.permute(3, 4, 0, 1, 2, 5).contiguous().view(-1, anchors.shape[-1])
+                    # if self.seperate_multihead:
+                    #     selected_classes = cur_gt_classes[mask].clone()
+                    #     if len(selected_classes) > 0:
+                    #         new_cls_id = self.gt_remapping[anchor_class_name]
+                    #         selected_classes[:] = new_cls_id
+                    # else:
+                    #     selected_classes = cur_gt_classes[mask]
+                    selected_classes = cur_gt_classes[mask]
+                else:
+                    feature_map_size = anchors.shape[:3]
+                    anchors = anchors.view(-1, anchors.shape[-1])
+                    selected_classes = cur_gt_classes[mask]
+
+                single_target = self.assign_targets_single(
+                    anchors,
+                    cur_gt[mask],
+                    gt_classes=selected_classes,
+                    matched_threshold=self.matched_thresholds[anchor_class_name],
+                    unmatched_threshold=self.unmatched_thresholds[anchor_class_name],
+                )
+                target_list.append(single_target)
+
+            if self.use_multihead:
+                target_dict = {
+                    'box_cls_labels': [t['box_cls_labels'].view(-1) for t in target_list],
+                    'box_reg_targets': [t['box_reg_targets'].view(-1, self.box_coder.code_size) for t in target_list],
+                    'reg_weights': [t['reg_weights'].view(-1) for t in target_list]
+                }
+
+                target_dict['box_reg_targets'] = torch.cat(target_dict['box_reg_targets'], dim=0)
+                target_dict['box_cls_labels'] = torch.cat(target_dict['box_cls_labels'], dim=0).view(-1)
+                target_dict['reg_weights'] = torch.cat(target_dict['reg_weights'], dim=0).view(-1)
+            else:
+                target_dict = {
+                    'box_cls_labels': [t['box_cls_labels'].view(*feature_map_size, -1) for t in target_list],
+                    'box_reg_targets': [t['box_reg_targets'].view(*feature_map_size, -1, self.box_coder.code_size)
+                                        for t in target_list],
+                    'reg_weights': [t['reg_weights'].view(*feature_map_size, -1) for t in target_list]
+                }
+                target_dict['box_reg_targets'] = torch.cat(
+                    target_dict['box_reg_targets'], dim=-2
+                ).view(-1, self.box_coder.code_size)
+
+                target_dict['box_cls_labels'] = torch.cat(target_dict['box_cls_labels'], dim=-1).view(-1)
+                mask = (target_dict['box_cls_labels'][mask_inds[k]] == 0).nonzero().view(-1)
+                target_dict['box_cls_labels'][mask_inds[k].view(-1)[mask]] = (len(self.anchor_class_names) + 1)
+                target_dict['reg_weights'] = torch.cat(target_dict['reg_weights'], dim=-1).view(-1)
+
+            bbox_targets.append(target_dict['box_reg_targets'])
+            cls_labels.append(target_dict['box_cls_labels'])
+            reg_weights.append(target_dict['reg_weights'])
+
+        bbox_targets = torch.stack(bbox_targets, dim=0)
+
+        cls_labels = torch.stack(cls_labels, dim=0)
+        reg_weights = torch.stack(reg_weights, dim=0)
+        all_targets_dict = {
+            'box_cls_labels': cls_labels,
+            'box_reg_targets': bbox_targets,
+            'reg_weights': reg_weights
+
+        }
+        return all_targets_dict

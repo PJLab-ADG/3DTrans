@@ -98,6 +98,18 @@ class AnchorHeadTemplate(nn.Module):
         )
         return targets_dict
 
+    def assign_targets_with_mask(self, gt_boxes, mask_inds):
+        """
+        Args:
+            gt_boxes: (B, M, 8)
+        Returns:
+
+        """
+        targets_dict = self.target_assigner.assign_targets_with_mask(
+            self.anchors, gt_boxes, mask_inds
+        )
+        return targets_dict
+
     def get_cls_layer_loss(self):
         cls_preds = self.forward_ret_dict['cls_preds']
         box_cls_labels = self.forward_ret_dict['box_cls_labels']

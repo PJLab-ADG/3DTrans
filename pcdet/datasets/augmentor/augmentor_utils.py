@@ -8,6 +8,7 @@ from ...utils import box_utils
 
 from ...ops.roiaware_pool3d import roiaware_pool3d_utils
 from ...ops.iou3d_nms import iou3d_nms_utils
+from typing import Dict, List, NamedTuple, Tuple, Union
 
 import warnings
 try:
@@ -925,3 +926,155 @@ def rotate_objects(gt_boxes, points, gt_boxes_mask, rotation_perturb, prob, num_
         gt_boxes[idx] = rot_box[try_idx]
 
     return gt_boxes, points
+
+def random_beam_sampling(points, num_rings=40, proj_fov_up=15.0, proj_fov_down=-25.0):
+    proj_y, proj_x, num_rings, num_cyl_rings = get_range_proj_coordinates(
+        points=points,
+        ring=None,
+        horiz_angular_res=0.1875, # 1920 per ring
+        num_rings=num_rings,
+        proj_fov_up=proj_fov_up,
+        proj_fov_down=proj_fov_down
+    )
+
+    range_view, label_rv, idx_rv = get_range_view_inputs(
+        points=points,
+        points_label=None,
+        proj_y=proj_y,
+        proj_x=proj_x,
+        ht=num_rings,
+        wt=num_cyl_rings,
+        add_binary_mask=True
+    )
+
+    range_view_interpolation, range_view_mask, range_view_intensity = interpolate_range_view(range_view)
+    interpolate_points = range_view_to_point_cloud(
+        range_view_interpolation, range_view_mask, range_view_intensity, proj_x, proj_fov_up, proj_fov_down
+    )
+    return interpolate_points
+
+def get_range_proj_coordinates(
+        points: np.ndarray,
+        ring: np.ndarray = None,
+        horiz_angular_res: float = 0.1875,
+        num_rings: int = 32,
+        proj_fov_up: float = 10.0,
+        proj_fov_down: float = -10.0
+    ) -> Tuple[np.ndarray, np.ndarray, int, int]:
+    scan_x = points[:, 0]  # x: [n,]
+    scan_y = points[:, 1]  # y: [n,]
+
+    num_cyl_rings = np.floor(360 / horiz_angular_res).astype(int)  # 360 / 0.1875 = 1920
+
+    two_pi = 2 * np.pi
+    azimuth_angle = np.arctan2(scan_y, scan_x)    # [n,]
+    azimuth_angle[azimuth_angle < 0.0] += two_pi  # in [0, 2*pi]
+    pixels_per_radian = num_cyl_rings / two_pi    # 1920 / 2*pi = 305.5575
+    proj_x = azimuth_angle * pixels_per_radian    # in [0.0, W]
+
+    proj_x = np.floor(proj_x)  # in [0.0, W]
+    proj_x = np.minimum(num_cyl_rings - 1, proj_x)
+    proj_x = np.maximum(0, proj_x).astype(np.int32)  # in [0, W-1]
+    proj_x = np.copy(proj_x)  # store a copy in orig order
+
+    if ring is not None:
+        assert len(ring) == len(points), 'Ring array should have the same length as points array'
+        assert np.all(ring < num_rings), 'Ring ids surpasses the number of rings!'
+        proj_y = num_rings - ring.astype(np.int32) - 1  # Using the ring information.
+    else:
+        fov_up = proj_fov_up / 180.0 * np.pi  # field of view up in rad
+        fov_down = proj_fov_down / 180.0 * np.pi  # field of view down in rad
+        fov = abs(fov_down) + abs(fov_up)  # get field of view total in rad
+
+        depth = np.linalg.norm(points[:, 0:3], 2, axis=1)
+        scan_z = points[:, 2]
+        pitch = np.arcsin(scan_z / depth)
+
+        proj_y = (pitch + abs(fov_down)) / fov # 1.0 - (pitch + abs(fov_down)) / fov  # in [0.0, 1.0]
+        proj_y *= num_rings
+        proj_y = np.floor(proj_y)
+        proj_y = np.minimum(num_rings - 1, proj_y)
+        proj_y = np.maximum(0, proj_y).astype(np.int32)  # in [0, H-1]
+        proj_y = np.copy(proj_y)  # store a copy in original order
+
+    return proj_y, proj_x, num_rings, num_cyl_rings
+
+
+def get_range_view_inputs(
+        points: np.ndarray,
+        points_label: Union[np.ndarray, None],
+        proj_y: np.ndarray,
+        proj_x: np.ndarray,
+        ht: int,
+        wt: int,
+        add_binary_mask: bool = True,
+        ignore_label: int = -100,
+        fill_value: int = -1
+    ) -> Tuple[np.ndarray, Union[np.ndarray, None], np.ndarray]:
+    # order the points in decreasing depth
+    depth = np.linalg.norm(points[:, :2], axis=1)  # [n,]
+    depth_xyz = np.linalg.norm(points[:, :3], axis=1)
+    indices = np.arange(points.shape[0])  # [n,]
+    order = np.argsort(depth)[::-1]  # [n,]
+
+    depth = depth[order]
+    indices = indices[order]
+    points = points[order]
+    proj_y = proj_y[order]
+    proj_x = proj_x[order]
+    depth_xyz = depth_xyz[order]
+
+    # create the basic features for range view input: x-y-z-(otherfeatures)-depth
+    feat_dim = points.shape[1]
+    range_view = np.full((ht, wt, feat_dim + 1), fill_value, dtype=np.float32)  # [32, 1920, 5]
+    idx_rv = np.full((ht, wt), fill_value, dtype=np.int32)  # [32, 1920]
+    idx_rv[proj_y, proj_x] = indices
+    range_view[proj_y, proj_x, :feat_dim] = points  # x-y-z-intensity-(otherfeatures) as channels
+    range_view[proj_y, proj_x, feat_dim] = depth_xyz  # add depth channel
+
+    if add_binary_mask:
+        range_view = np.concatenate((range_view, np.atleast_3d((idx_rv != fill_value).astype(np.int32))), axis=2)
+
+    if points_label is not None:
+        points_label = points_label[order]
+        label_rv = np.full((ht, wt), ignore_label, dtype=np.int32)
+        label_rv[proj_y, proj_x] = points_label
+    else:
+        label_rv = None
+
+    return range_view, label_rv, idx_rv
+
+def interpolate_range_view(range_view):
+    range_view_depth = range_view[:, :, 4] # depth
+    range_view_intensity = range_view[:, :, 3]
+    range_view_mask = range_view[:, :, 5]
+    range_view_interpolation = range_view_depth.repeat(2, axis=0)[:-1]
+    range_view_interpolation[1::2, :] += (range_view_interpolation[2::2, :] - range_view_interpolation[1::2, :]) / 2
+    range_view_intensity = range_view_intensity.repeat(2, axis=0)[:-1]
+    range_view_intensity[1::2, :] += (range_view_intensity[2::2, :] - range_view_intensity[1::2, :]) / 2
+    range_view_mask = range_view_mask.repeat(2, axis=0)[:-1]
+    range_view_mask[1::2, :] = np.floor((range_view_mask[2::2, :] + range_view_mask[1::2, :]) / 2)
+    range_view_mask[0::2, :] = 0. # mask original points
+    return range_view_interpolation, range_view_mask, range_view_intensity
+
+def range_view_to_point_cloud(range_view_interpolate, range_view_mask, range_view_intensity, proj_x, fov_up, fov_down):
+    fov_up = fov_up / 180.0 * np.pi
+    fov_down = fov_down / 180.0 * np.pi
+    pitch = np.linspace(fov_down, fov_up, num=range_view_interpolate.shape[0], endpoint=True)
+    depth = range_view_interpolate
+    scan_z = depth * np.sin(pitch).reshape(-1, 1)
+
+    azimuth_angle = np.linspace(proj_x.min(), proj_x.max(), num=1920, endpoint=True) / 1920 * 2 * np.pi
+    # azimuth_angle = proj_x / (1920 / (np.pi * 2))
+    azimuth_angle[azimuth_angle > np.pi] -= np.pi * 2
+    depth_xy = np.sqrt(depth ** 2 - scan_z ** 2)
+    scan_x = depth_xy * np.cos(azimuth_angle).reshape(1, -1)
+    scan_y = depth_xy * np.sin(azimuth_angle).reshape(1, -1)
+
+    scan_z = scan_z[range_view_mask.astype(bool)].reshape(-1, 1)
+    scan_x = scan_x[range_view_mask.astype(bool)].reshape(-1, 1)
+    scan_y = scan_y[range_view_mask.astype(bool)].reshape(-1, 1)
+    intensity = range_view_intensity[range_view_mask.astype(bool)].reshape(-1, 1)
+    points = np.concatenate([scan_x, scan_y, scan_z, intensity], axis=1)
+    return points
+

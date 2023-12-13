@@ -1,6 +1,7 @@
 import torch
 from torch.utils.data import DataLoader
 from torch.utils.data import DistributedSampler as _DistributedSampler
+from torch.utils.data import ConcatDataset
 
 from pcdet.utils import common_utils
 
@@ -18,6 +19,7 @@ from .lyft.lyft_dataset_ada import ActiveLyftDataset
 from .once.once_dataset import ONCEDataset
 from .once.once_dataset_ada import ActiveONCEDataset
 from .once.once_semi_dataset import ONCEPretrainDataset, ONCELabeledDataset, ONCEUnlabeledDataset, ONCETestDataset, ONCEUnlabeledPairDataset, split_once_semi_data
+from .once.once_dataset_pretrain import ONCEDatasetPretrain_ADPT
 from .nuscenes.nuscenes_semi_dataset import NuScenesPretrainDataset, NuScenesLabeledDataset, NuScenesUnlabeledDataset, NuScenesTestDataset, split_nuscenes_semi_data
 from .kitti.kitti_semi_dataset import KittiPretrainDataset, KittiLabeledDataset, KittiUnlabeledDataset, KittiTestDataset, split_kitti_semi_data
 
@@ -35,6 +37,7 @@ __all__ = {
     'ONCEDataset': ONCEDataset,
     'ActiveLyftDataset': ActiveLyftDataset,
     'ActiveONCEDataset': ActiveONCEDataset,
+    'ONCEDatasetPretrain_ADPT': ONCEDatasetPretrain_ADPT
 }
 
 _semi_dataset_dict = {
@@ -348,3 +351,41 @@ def build_unsupervised_dataloader(dataset_cfg, class_names, batch_size, dist, ro
     }
 
     return datasets, dataloaders, samplers
+
+def build_dataloader_multi_db(dataset_cfg_1, dataset_cfg_2, class_names_1, class_names_2, batch_size, dist, root_path=None, workers=4,
+                     logger=None, training=True, merge_all_iters_to_one_epoch=False, total_epochs=0):
+
+    dataset_1 = __all__[dataset_cfg_1.DATASET](
+        dataset_cfg=dataset_cfg_1,
+        class_names=class_names_1,
+        root_path=root_path,
+        training=training,
+        logger=logger,
+    )
+    dataset_2 = __all__[dataset_cfg_2.DATASET](
+        dataset_cfg=dataset_cfg_2,
+        class_names=class_names_2,
+        root_path=root_path,
+        training=training,
+        logger=logger,
+    )
+    concat_dataset = ConcatDataset([dataset_1, dataset_2])
+    if merge_all_iters_to_one_epoch:
+        assert hasattr(concat_dataset, 'merge_all_iters_to_one_epoch')
+        concat_dataset.merge_all_iters_to_one_epoch(merge=True, epochs=total_epochs)
+
+    if dist:
+        if training:
+            sampler = torch.utils.data.distributed.DistributedSampler(concat_dataset)
+        else:
+            rank, world_size = common_utils.get_dist_info()
+            sampler = DistributedSampler(concat_dataset, world_size, rank, shuffle=False)
+    else:
+        sampler = None
+    dataloader = DataLoader(
+        concat_dataset, batch_size=batch_size, pin_memory=True, num_workers=workers,
+        shuffle=(sampler is None) and training, collate_fn=dataset_1.collate_batch,
+        drop_last=False, sampler=sampler, timeout=0
+    )
+
+    return dataset_1, dataset_2, dataloader, sampler
