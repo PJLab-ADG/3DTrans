@@ -335,11 +335,11 @@ We report the **zero-shot** cross-dataset (Waymo-to-nuScenes) adaptation results
 ```
 
 ```
-@article{zhang2023resimad,
+@inproceedings{zhang2023resimad,
   title={ReSimAD: Zero-Shot 3D Domain Transfer for Autonomous Driving with Source Reconstruction and Target Simulation},
   author={Zhang, Bo and Cai, Xinyu and Yuan, Jiakang and Yang, Donglin and Guo, Jianfei and Xia, Renqiu and Shi, Botian and Dou, Min and Chen, Tao and Liu, Si and others},
-  journal={arXiv preprint arXiv:2309.05527},
-  year={2023}
+  journal={International Conference on Learning Representations},
+  year={2024}
 }
 ```
 
